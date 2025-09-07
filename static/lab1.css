@@ -1,0 +1,22 @@
+body {
+    background-color: #fff8f0;
+    color: #333333;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    padding: 15px;
+}
+
+h1 {
+    color: #b03060;
+    margin-bottom: 18px;
+}
+
+img.sakura {
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.222);
+}
