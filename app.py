@@ -155,3 +155,75 @@ def created():
                 <div><i>что-то создано...</i></div>
             </body>
         </html>''', 201
+
+@app.route('/error/400')
+def error_400():
+    return '''<!doctype html>
+        <html>
+            <head><meta charset="utf-8"><title>400 Bad Request</title></head>
+            <body>
+                <h1>400 Bad Request</h1>
+                <p>Сервер не смог понять запрос из-за неверного синтаксиса.</p>
+            </body>
+        </html>''', 400, {'Content-Type': 'text/html; charset=utf-8'}
+
+@app.route('/error/401')
+def error_401():
+    return '''<!doctype html>
+        <html>
+            <head><meta charset="utf-8"><title>401 Unauthorized</title></head>
+            <body>
+                <h1>401 Unauthorized</h1>
+                <p>Требуются учетные данные для доступа к ресурсу.</p>
+            </body>
+        </html>''', 401, {
+            'Content-Type': 'text/html; charset=utf-8',
+            'WWW-Authenticate': 'Basic realm="Login Required"'
+            }
+
+@app.route('/error/402')
+def error_402():
+    return '''<!doctype html>
+        <html>
+            <head><meta charset="utf-8"><title>402 Payment Required</title></head>
+            <body>
+                <h1>402 Payment Required</h1>
+                <p>Зарезервировано для будущего использования.</p>
+            </body>
+        </html>''', 402, {'Content-Type': 'text/html; charset=utf-8'}
+
+@app.route('/error/403')
+def error_403():
+    return '''<!doctype html>
+        <html>
+            <head><meta charset="utf-8"><title>403 Forbidden</title></head>
+            <body>
+                <h1>403 Forbidden</h1>
+                <p>Клиент не имеет прав доступа к контенту.</p>
+            </body>
+        </html>''', 403, {'Content-Type': 'text/html; charset=utf-8'}
+
+@app.route('/error/405')
+def error_405():
+    return '''<!doctype html>
+        <html>
+            <head><meta charset="utf-8"><title>405 Method Not Allowed</title></head>
+            <body>
+                <h1>405 Method Not Allowed</h1>
+                <p>Используемый HTTP-метод не разрешён для данного ресурса.</p>
+            </body>
+        </html>''', 405, {
+            'Content-Type': 'text/html; charset=utf-8',
+            'Allow': 'GET'
+            }
+
+@app.route('/error/418')
+def error_418():
+    return '''<!doctype html>
+        <html>
+            <head><meta charset="utf-8"><title>418 I'm a teapot</title></head>
+            <body>
+                <h1>418 I'm a teapot</h1>
+                <p>«Шуточный» ответ: сервер отклоняет попытку заварить кофе в чайнике.</p>
+            </body>
+        </html>''', 418, {'Content-Type': 'text/html; charset=utf-8'}
