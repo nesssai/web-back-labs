@@ -6,20 +6,20 @@ app = Flask(__name__)
 def not_found(err):
     return "Такой страницы не существует :(", 404
 
-@app.route("/web")
+@app.route("/lab1/web")
 def web():
     return """<!doctype html>
         <html>
             <body>
                <h1>web-сервер на flask</h1>
-               <a href="/author">author<a>
+               <a href="/lab1/author">author<a>
             </body>
         </html>""", 200, {
             'X-Server': 'sample',
             'Content-Type': 'text/plain; charset=utf-8'
             }
 
-@app.route("/author")
+@app.route("/lab1/author")
 def author():
     name = "Денисенко Александра Юрьевна"
     group = "ФБИ-31"
@@ -31,11 +31,11 @@ def author():
                 <p>Студент: """ + name + """</p>
                 <p>Группа: """ + group + """</p>
                 <p>Факультет: """ + faculty + """</p>
-                <a href="/web">web<a>
+                <a href="/lab1/web">web<a>
             </body>
         </html>"""
 
-@app.route('/image')
+@app.route('/lab1/image')
 def image():
     path = url_for("static", filename="sakura.jpg")
     css_path = url_for("static", filename="lab1.css")
@@ -54,7 +54,7 @@ def image():
 
 count = 0
 
-@app.route('/counter')
+@app.route('/lab1/counter')
 def counter():
     global count
     count += 1
@@ -71,11 +71,11 @@ def counter():
                 Запрошенный адрес: ''' + url + '''<br>
                 Ваш IP адрес: ''' + client_ip + '''<br>
                 <hr>
-                <a href="/counter/clear">Очистить счётчик</a>
+                <a href="/lab1/counter/clear">Очистить счётчик</a>
             </body>
         </html>'''
 
-@app.route('/counter/clear')
+@app.route('/lab1/counter/clear')
 def counter_clear():
     global count
     count = 0
@@ -84,13 +84,13 @@ def counter_clear():
             <body>
                 <h1>Счётчик очищен</h1>
                 <p>Значение счётчика теперь равно 0</p>
-                <a href="/counter">Вернуться на страницу счётчика</a>
+                <a href="/lab1/counter">Вернуться на страницу счётчика</a>
             </body>
         </html>'''
 
-@app.route('/info')
+@app.route('/lab1/info')
 def info():
-    return redirect("/author")
+    return redirect("/lab1/author")
 
 @app.route("/lab1/created")
 def created():
