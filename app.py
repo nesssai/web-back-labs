@@ -6,6 +6,44 @@ app = Flask(__name__)
 def not_found(err):
     return "Такой страницы не существует :(", 404
 
+@app.route('/')
+@app.route('/index')
+def index():
+    name = "Денисенко Александра Юрьевна"
+    group = "ФБИ-31"
+    course = "3 курс"
+    year = "2025 г."
+
+    return """<!doctype html>
+        <html>
+            <head>
+                <meta charset="utf-8">
+                <title>НГТУ, ФБ, Лабораторные работы</title>
+            </head>
+            <body>
+                <header>
+                    <h1>НГТУ, ФБ, WEB-программирование, часть 2. Список лабораторных</h1>
+                </header>
+
+                <div>
+                    <ul>
+                        <li><a href="/lab1">Первая лабораторная</a></li>
+                    </ul>
+                </div>
+
+                <footer>
+                    <hr>
+                    <div style="text-align:right; white-space:nowrap; overflow:hidden;">
+                        """ + name + """, """ + group + """, """ + course + """, """ + year + """
+                    </div>
+                </footer>
+            </body>
+        </html>"""
+
+@app.route('/lab1')
+def lab1():
+    return 
+
 @app.route("/lab1/web")
 def web():
     return """<!doctype html>
