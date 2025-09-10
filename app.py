@@ -72,6 +72,24 @@ def lab1():
                 </p>
 
                 <p><a href="/">На главную</a></p>
+
+                <h2>Список роутов:</h2>
+                <ul>
+                    <li><a href="/lab1/web">/lab1/web</a></li>
+                    <li><a href="/lab1/author">/lab1/author</a></li>
+                    <li><a href="/lab1/image">/lab1/image</a></li>
+                    <li><a href="/lab1/counter">/lab1/counter</a></li>
+                    <li><a href="/lab1/counter/clear">/lab1/counter/clear</a></li>
+                    <li><a href="/lab1/info">/lab1/info</a></li>
+                    <li><a href="/lab1/created">/lab1/created</a></li>
+                    <li><a href="/lab1/error/400">/lab1/error/400</a></li>
+                    <li><a href="/lab1/error/401">/lab1/error/401</a></li>
+                    <li><a href="/lab1/error/402">/lab1/error/402</a></li>
+                    <li><a href="/lab1/error/403">/lab1/error/403</a></li>
+                    <li><a href="/lab1/error/405">/lab1/error/405</a></li>
+                    <li><a href="/lab1/error/418">/lab1/error/418</a></li>
+                    <li><a href="/lab1/trigger500">/lab1/trigger500</a></li>
+                </ul>
             </body>
         </html>"""
 
@@ -180,7 +198,7 @@ def created():
             </body>
         </html>''', 201
 
-@app.route('/error/400')
+@app.route('/lab1/error/400')
 def error_400():
     return '''<!doctype html>
         <html>
@@ -190,7 +208,7 @@ def error_400():
             </body>
         </html>''', 400, {'Content-Type': 'text/html; charset=utf-8'}
 
-@app.route('/error/401')
+@app.route('/lab1/error/401')
 def error_401():
     return '''<!doctype html>
         <html>
@@ -203,7 +221,7 @@ def error_401():
             'WWW-Authenticate': 'Basic realm="Login Required"'
             }
 
-@app.route('/error/402')
+@app.route('/lab1/error/402')
 def error_402():
     return '''<!doctype html>
         <html>
@@ -213,7 +231,7 @@ def error_402():
             </body>
         </html>''', 402, {'Content-Type': 'text/html; charset=utf-8'}
 
-@app.route('/error/403')
+@app.route('/lab1/error/403')
 def error_403():
     return '''<!doctype html>
         <html>
@@ -223,7 +241,7 @@ def error_403():
             </body>
         </html>''', 403, {'Content-Type': 'text/html; charset=utf-8'}
 
-@app.route('/error/405')
+@app.route('/lab1/error/405')
 def error_405():
     return '''<!doctype html>
         <html>
@@ -236,7 +254,7 @@ def error_405():
             'Allow': 'GET'
             }
 
-@app.route('/error/418')
+@app.route('/lab1/error/418')
 def error_418():
     return '''<!doctype html>
         <html>
@@ -246,7 +264,7 @@ def error_418():
             </body>
         </html>''', 418, {'Content-Type': 'text/html; charset=utf-8'}
 
-@app.route('/trigger500')
+@app.route('/lab1/trigger500')
 def trigger_500():
     return 1 / 0
 
