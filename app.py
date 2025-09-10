@@ -108,10 +108,10 @@ def author():
 def image():
     path = url_for("static", filename="sakura.jpg")
     css_path = url_for("static", filename="lab1.css")
-    return '''<!doctype html>
+
+    html = '''<!doctype html>
         <html>
             <head>
-                <meta charset="utf-8">
                 <title>Сакура</title>
                 <link rel="stylesheet" href="''' + css_path + '''">
             </head>
@@ -120,6 +120,15 @@ def image():
                 <img class="sakura" src="''' + path + '''" alt="Сакура">
             </body>
         </html>'''
+    
+    headers = {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Content-Language': 'ru',
+        'X-Student-Name': 'Aleksandra Denisenko',
+        'X-Lab': 'Lab-1'
+    }
+    
+    return html, 200, headers
 
 count = 0
 
