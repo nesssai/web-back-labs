@@ -175,7 +175,6 @@ def created():
 def error_400():
     return '''<!doctype html>
         <html>
-            <head><meta charset="utf-8"><title>400 Bad Request</title></head>
             <body>
                 <h1>400 Bad Request</h1>
                 <p>Сервер не смог понять запрос из-за неверного синтаксиса.</p>
@@ -186,7 +185,6 @@ def error_400():
 def error_401():
     return '''<!doctype html>
         <html>
-            <head><meta charset="utf-8"><title>401 Unauthorized</title></head>
             <body>
                 <h1>401 Unauthorized</h1>
                 <p>Требуются учетные данные для доступа к ресурсу.</p>
@@ -200,7 +198,6 @@ def error_401():
 def error_402():
     return '''<!doctype html>
         <html>
-            <head><meta charset="utf-8"><title>402 Payment Required</title></head>
             <body>
                 <h1>402 Payment Required</h1>
                 <p>Зарезервировано для будущего использования.</p>
@@ -211,7 +208,6 @@ def error_402():
 def error_403():
     return '''<!doctype html>
         <html>
-            <head><meta charset="utf-8"><title>403 Forbidden</title></head>
             <body>
                 <h1>403 Forbidden</h1>
                 <p>Клиент не имеет прав доступа к контенту.</p>
@@ -222,7 +218,6 @@ def error_403():
 def error_405():
     return '''<!doctype html>
         <html>
-            <head><meta charset="utf-8"><title>405 Method Not Allowed</title></head>
             <body>
                 <h1>405 Method Not Allowed</h1>
                 <p>Используемый HTTP-метод не разрешён для данного ресурса.</p>
@@ -236,9 +231,23 @@ def error_405():
 def error_418():
     return '''<!doctype html>
         <html>
-            <head><meta charset="utf-8"><title>418 I'm a teapot</title></head>
             <body>
                 <h1>418 I'm a teapot</h1>
                 <p>«Шуточный» ответ: сервер отклоняет попытку заварить кофе в чайнике.</p>
             </body>
         </html>''', 418, {'Content-Type': 'text/html; charset=utf-8'}
+
+@app.route('/trigger500')
+def trigger_500():
+    return 1 / 0
+
+@app.errorhandler(500)
+def server_error(err):
+    return '''<!doctype html>
+    <html>
+        <body>
+            <h1>500 &mdash; Внутренняя ошибка сервера</h1>
+            <p>На сервере произошла ошибка. Пожалуйста, попробуйте позже.</p>
+            <p><a href="/">Вернуться на главную</a></p>
+        </body>
+    </html>''', 500
