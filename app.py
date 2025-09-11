@@ -2,10 +2,38 @@ from flask import Flask, url_for, request, redirect
 import datetime
 app = Flask(__name__)
 
+access_log = []
+
 @app.errorhandler(404)
 def not_found(err):
     img_path = url_for('static', filename='404.jpg')
     css_path = url_for('static', filename='404.css')
+
+    # Определяем IP-адрес
+    xff = request.headers.get('X-Forwarded-For', '')
+    if xff:
+        ip = xff.split(',')[0].strip()
+    else:
+        ip = request.remote_addr or 'Unknown'
+
+    # "Достаём" дату доступа
+    access_time = datetime.datetime.now().strftime('%d.%m.%Y в %H:%M:%S')
+
+    # Запрошенный адрес
+    requested_url = request.url
+
+    # Добавляем запись в in-memory лог
+    access_log.append({
+        'ip': ip,
+        'time': access_time,
+        'url': requested_url
+    })
+
+    # Формируем HTML-список лога
+    log_items = ''
+    for entry in access_log:
+        log_items += '<li> Пользователь {ip} {time} зашёл на адрес: {url}</li>'.format(**entry)
+
     return '''<!doctype html>
         <html>
             <head>
@@ -17,7 +45,19 @@ def not_found(err):
                 <img src="''' + img_path + '''" alt="404">
                 <h1>Ой! Такой страницы нет</h1>
                 <p>Проверьте адрес или вернитесь на главную</p>
-                <a href="/">Вернуться на главную</a>
+
+                <div class="info">
+                    <h2>Информация о запросе:</h2>
+                    <p><b>Ваш IP:</b> ''' + ip + '''</p>
+                    <p><b>Дата доступа:</b> ''' + access_time + '''</p>
+                </div>
+                    <a href="/">Вернуться на главную</a>
+
+                <hr>
+                <h2>Журнал обращений:</h2>
+                <ul class="log">
+                    ''' + log_items + '''
+                </ul>
             </body>
         </html>''', 404
 

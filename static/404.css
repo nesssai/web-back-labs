@@ -20,6 +20,12 @@ h1 {
     margin-top: 20px
 }
 
+h2 {
+    color: #ffffff; 
+    font-size: 26px;
+    margin-top: 30px;
+}
+
 p {
     color:#ffffff; 
     font-size: 20px; 
@@ -28,7 +34,8 @@ p {
 
 a {
     display: inline-block; 
-    margin-top: 10px; 
+    margin: 10px 0px 10px; 
+    font-size: 20px;
     color: #ffffff; 
     text-decoration: none; 
     padding: 8px 14px; 
@@ -39,4 +46,20 @@ a {
 a:hover {
     background: #ffffff; 
     color: #333333
+}
+
+ul.log { 
+    list-style: none; 
+    padding: 0;
+}
+
+ul.log li { 
+    color: #ffffff; 
+    padding: 5px 10px;
+    font-size: 20px;
+}
+
+.info p { 
+    color: #ffffff; 
+    font-size: 20px;
 }
