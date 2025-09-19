@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    background: #f6ece2;
+    color: rgb(34, 34, 34);
+}
+
+main {
+    margin-bottom: 40px;
+    padding: 16px;
+    width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    background: #e7ddd3;
+    color: black;
+    border-radius: 16px;
+}
+
+header {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(90deg, #64bfba, #b5eaec);
+    color: rgb(255, 255, 255);
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
+footer {
+    margin-top: 20px;
+    padding: 10px 16px;
+    background: linear-gradient(90deg, #b5eaec, #64bfba);
+    color: rgb(255, 255, 255);
+    text-align: right;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
