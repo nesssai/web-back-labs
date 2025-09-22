@@ -329,12 +329,39 @@ def a2():
 
 flower_list = ['Роза', 'Тюльпан', 'Пион', 'Ромашка', 'Лилия']
 
+@app.route('/lab2/flowers')
+def flowers_all():
+    items = ''
+    for name in flower_list:
+        items += f'<li>{name}</li>'
+    if not items:
+        items = '<li>Список пуст</li>'
+    return f'''<!doctype html>
+    <html>
+        <body>
+            <h1>Список всех цветов</h1>
+            <p>Всего цветов: <b>{len(flower_list)}</b></p>
+            <ul>
+                {items}
+            </ul>
+            <p><a href="/lab2/flowers/clear">Очистить список цветов</a></p>
+        </body>
+    </html>'''
+
 @app.route('/lab2/flowers/<int:flower_id>')
 def flowers(flower_id):
-    if flower_id >= len(flower_list):
+    if flower_id >= len(flower_list) or flower_id < 0:
         abort(404)
-    else:
-        return "Цветок: " + flower_list[flower_id]
+    name = flower_list[flower_id]
+    return f'''<!doctype html>
+    <html>
+        <body>
+            <h1>Информация о цветке</h1>
+            <p><b>ID:</b> {flower_id}</p>
+            <p><b>Название:</b> {name}</p>
+            <p><a href="/lab2/flowers">Посмотреть список всех цветов</a></p>
+        </body>
+    </html>'''
 
 @app.route('/lab2/add_flower/<name>')
 def add_flower(name):
@@ -343,9 +370,25 @@ def add_flower(name):
     <html>
         <body>
             <h1>Добавлен новый цветок</h1>
-            <p>Название нового цветка: {name}</p>
-            <p>Всего цветов: {len(flower_list)}</p>
-            <p>Полный список цветов: {flower_list}</p>
+            <p><b>Название нового цветка:</b> {name}</p>
+            <p><b>Всего цветов:</b> {len(flower_list)}</p>
+            <p><b>Полный список цветов:</b> {flower_list}</p>
+        </body>
+    </html>'''
+
+@app.route('/lab2/add_flower/')
+def add_flower_missing():
+    return 'Вы не задали имя цветка.', 400
+
+@app.route('/lab2/flowers/clear')
+def clear_flowers():
+    global flower_list
+    flower_list = []
+    return '''<!doctype html>
+    <html>
+        <body>
+            <h1>Список цветов очищен</h1>
+            <p><a href="/lab2/flowers">Посмотреть весь список цветов</a></p>
         </body>
     </html>'''
 
