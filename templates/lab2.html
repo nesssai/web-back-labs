@@ -5,11 +5,49 @@
 
 {# основной контент: #}
 {% block main %}
-<h1>Шаблоны</h1>
-<div>Тема лабораторной - шаблоны. Список сделанных страниц:</div>
-<ol>
-    <li>
-        <a href="/lab2/example">example</a>
-    </li>
-</ol>
+    <h1>Шаблоны</h1>
+
+    <div>Тема лабораторной - шаблоны. Список сделанных страниц:</div>
+
+    <ol>
+        <li>
+            <a href="/lab2/example">example</a> 
+        </li>
+        <li>
+            <a href="{{ url_for('a') }}">a</a> - без слэша
+        </li>
+        <li>
+            <a href="{{ url_for('a2') }}">a/</a> - со слэшем
+        </li>
+        <li>
+            <a href="{{ url_for('flowers_all') }}">flowers</a> - список цветов
+        </li>
+        <li>
+            <a href="{{ url_for('flowers', flower_id=0) }}">flowers/&lt;id&gt;</a> - информация о конкретном цветке
+        </li>
+        <li>
+            <a href="{{ url_for('add_flower', name='Ирис') }}">add_flower/&lt;name&gt;</a> - пример добавления цветка
+        </li>
+        <li>
+            <a href="{{ url_for('add_flower_missing') }}">add_flower/</a> - демонстрация ошибки 400 при отсутствии имени нового цветка
+        </li>
+        <li>
+            <a href="{{ url_for('clear_flowers') }}">flowers/clear</a> - очистка списка цветов
+        </li>
+        <li>
+            <a href="{{ url_for('show_books') }}">books</a> - список книг
+        </li>
+        <li>
+            <a href="{{ url_for('show_objects') }}">objects</a> - объекты
+        </li>
+        <li>
+            <a href="{{ url_for('filters') }}">filters</a> — демонстрация фильтров
+        </li>
+        <li>
+            <a href="{{ url_for('calc_default') }}">calc/</a> - калькулятор (по умолчанию)
+        </li>
+        <li>
+            <a href="{{ url_for('calc_ab', a=3, b=2) }}">calc/&lt;a&gt;/&lt;b&gt;/</a> - калькулятор (с заданными параметрами)
+        </li>
+    </ol>
 {% endblock %}

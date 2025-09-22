@@ -5,6 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Денисенко Александра Юрьевна. {% block lab %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <style>
+        .button-link {
+            display: inline-block; 
+            padding: 10px 15px;
+            border-radius: 16px; 
+            border: 2px solid #64bfba; 
+            background-color: #fdf4ea; 
+            color: black; 
+            text-decoration: none; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.096); 
+            cursor: pointer; 
+            transition: background-color 0.3s; 
+        }
+
+        .button-link:hover {
+            background-color: #b5eaec;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -13,6 +31,14 @@
     
     <main>
         {% block main %}{% endblock %}
+
+        <div style="display: flex; align-items: center; justify-content: center; margin-top: 14px;">
+            <nav>
+                <a href="{{ url_for('index') }}" class="button-link">
+                    На главную
+                </a>
+            </nav>
+        </div>
     </main>
 
     <footer>
