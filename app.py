@@ -446,3 +446,20 @@ def calc_ab(a, b):
         a=a, b=b,
         add=add, sub=sub, mul=mul, div=div, power=power
     )
+
+@app.route('/lab2/books/')
+def show_books():
+    books = [
+        {"author": "Ф. М. Достоевский", "title": "Преступление и наказание", "genre": "Роман", "pages": 608},
+        {"author": "Л. Н. Толстой", "title": "Война и мир", "genre": "Роман-эпопея", "pages": 1424},
+        {"author": "А. С. Пушкин", "title": "Евгений Онегин", "genre": "Роман в стихах", "pages": 224},
+        {"author": "А. П. Чехов", "title": "Палата №6", "genre": "Повесть", "pages": 416},
+        {"author": "Н. В. Гоголь", "title": "Мёртвые души", "genre": "Поэма", "pages": 320},
+        {"author": "И. С. Тургенев", "title": "Отцы и дети", "genre": "Роман", "pages": 286},
+        {"author": "М. А. Булгаков", "title": "Мастер и Маргарита", "genre": "Роман", "pages": 517},
+        {"author": "А. Н. Толстой", "title": "Пётр Первый", "genre": "Исторический роман", "pages": 768},
+        {"author": "В. В. Набоков", "title": "Лолита", "genre": "Роман", "pages": 544},
+        {"author": "Б. Л. Пастернак", "title": "Доктор Живаго", "genre": "Роман", "pages": 370},
+        {"author": "Кир Булычёв", "title": "Сто лет тому вперёд", "genre": "Научная фантастика", "pages": 352}
+    ]
+    return render_template('books.html', books=books)
