@@ -26,13 +26,16 @@
             <a href="{{ url_for('flowers', flower_id=0) }}">flowers/&lt;id&gt;</a> - информация о конкретном цветке
         </li>
         <li>
-            <a href="{{ url_for('add_flower', name='Ирис') }}">add_flower/&lt;name&gt;</a> - пример добавления цветка
+            <a href="{{ url_for('add_flower_with_price', name='Ирис', price='100') }}">add_flower/&lt;name&gt;/&lt;price&gt;</a> - пример добавления цветка и цены
         </li>
         <li>
-            <a href="{{ url_for('add_flower_missing') }}">add_flower/</a> - демонстрация ошибки 400 при отсутствии имени нового цветка
+            <a href="{{ url_for('add_flower') }}">add_flower/</a> - демонстрация ошибки 400 при отсутствии имени нового цветка
         </li>
         <li>
             <a href="{{ url_for('clear_flowers') }}">flowers/clear</a> - очистка списка цветов
+        </li>
+        <li>
+            <a href="{{ url_for('delete_flower', flower_id='0') }}">flowers/delete/&lt;flower_id&gt;</a> - очистка списка цветов
         </li>
         <li>
             <a href="{{ url_for('show_books') }}">books</a> - список книг
