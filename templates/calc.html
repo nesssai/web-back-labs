@@ -1,40 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Денисенко Александра Юрьевна. Лабораторная работа 2. Калькулятор</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-    <style>
-        .params {
-            margin-bottom: 20px;
-        }
-    </style>
-</head>
-<body>
-     <header>
-        WEB-программирование, часть 2. Лабораторная работа 2
-    </header>
-    
-    <main>
-        <h2>Расчёт с параметрами</h2>
+{% extends "base.html" %}
 
-        <div class="params">
-            <div>Параметр a: <b>{{ a }}</b></div>
-            <div>Параметр b: <b>{{ b }}</b></div>
-        </div>
+{# номер лабораторной работы и название задания: #}
+{% block lab %}Лабораторная работа 2{% endblock %}
 
-        <div>
-            <div>{{ a }} + {{ b }} = {{ add }}</div>
-            <div>{{ a }} - {{ b }} = {{ sub }}</div>
-            <div>{{ a }} × {{ b }} = {{ mul }}</div>
-            <div>{{ a }} / {{ b }} = {{ div }}</div>
-            <div>{{ a }}<sup>{{ b }}</sup> = {{ power }}</div>
-        </div>
-    </main>
+{# основной контент: #}
+{% block main %}
+    <h2>Расчёт с параметрами</h2>
 
-    <footer>
-        &copy; Денисенко Александра Юрьевна, ФБИ-31, 3 курс, 2025
-    </footer>
-</body>
-</html>
+    <div style="margin-bottom: 20px;">
+        <div>Параметр a: <b>{{ a }}</b></div>
+        <div>Параметр b: <b>{{ b }}</b></div>
+    </div>
+
+    <div>
+        <div>{{ a }} + {{ b }} = {{ add }}</div>
+        <div>{{ a }} - {{ b }} = {{ sub }}</div>
+        <div>{{ a }} × {{ b }} = {{ mul }}</div>
+        <div>{{ a }} / {{ b }} = {{ div }}</div>
+        <div>{{ a }}<sup>{{ b }}</sup> = {{ power }}</div>
+    </div>
+{% endblock %}
