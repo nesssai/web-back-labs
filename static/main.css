@@ -38,3 +38,12 @@ footer {
     left: 0;
     right: 0;
 }
+
+.error {
+    color: #cc0000;
+    background-color: #ffecec;
+    border: 1px solid #f5c6cb;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+}
