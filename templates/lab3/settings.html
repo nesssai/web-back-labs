@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 3{% endblock %}
+
+{% block main %}
+    <h1>Настройки отображения</h1>
+    
+    <form>
+        <div style="margin-bottom: 15px;">
+            <label class="label" for="color">Выберите цвет текста:</label>
+            <input type="color" id="color" name="color" value="{{ color or '' }}">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label class="label" for="bg_color">Выберите цвет фона:</label>
+            <input type="color" id="bg_color" name="bg_color" value="{{ bg_color or '' }}">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label class="label" for="font_size">Выберите размер шрифта (px):</label>
+            <input type="number" id="font_size" name="font_size" value="{{ font_size or 16 }}" min="8" max="72">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label class="label" for="font_family">Выберите шрифт:</label>
+            <select id="font_family" name="font_family">
+                <option value="Arial, sans-serif" {{ 'selected' if font_family == 'Arial, sans-serif' }}>Arial</option>
+                <option value="'Times New Roman', serif" {{ 'selected' if font_family == "'Times New Roman', serif" }}>Times New Roman</option>
+                <option value="Georgia, serif" {{ 'selected' if font_family == 'Georgia, serif' }}>Georgia</option>
+            </select>
+        </div>
+
+        <div>
+            <button type="submit">Применить</button>
+            <a href="/lab3/settings/clear" style="text-decoration: none; margin-left: 10px;">Сбросить настройки</a>
+        </div>
+    </form>
+{% endblock %}
