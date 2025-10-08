@@ -22,7 +22,7 @@ flower_list = [
 
 @lab2.route('/lab2/flowers')
 def flowers_all():
-    return render_template('flowers.html', flowers=flower_list)
+    return render_template('lab2/flowers.html', flowers=flower_list)
 
 
 @lab2.route('/lab2/flowers/<int:flower_id>')
@@ -30,13 +30,13 @@ def flowers(flower_id):
     if flower_id < 0 or flower_id >= len(flower_list):
         abort(404)
     flower = flower_list[flower_id]
-    return render_template('flower.html', flower=flower, id=flower_id)
+    return render_template('lab2/flower.html', flower=flower, id=flower_id)
 
 
 @lab2.route('/lab2/add_flower/<name>/<int:price>')
 def add_flower_with_price(name, price):
     flower_list.append({"name": name, "price": price})
-    return render_template('flower_added.html', name=name, price=price, flowers=flower_list)
+    return render_template('lab2/flower_added.html', name=name, price=price, flowers=flower_list)
 
 
 @lab2.route('/lab2/add_flower/', methods=['GET', 'POST'])
@@ -44,7 +44,7 @@ def add_flower():
     name = request.form.get('name', '').strip()
     price = request.form.get('price', '').strip()
     if not name or not price:
-        return render_template('add_flower_missing.html'), 400
+        return render_template('lab2/add_flower_missing.html'), 400
 
     flower_list.append({"name": name, "price": price})
     return redirect(url_for('lab2.flowers_all'))
@@ -54,7 +54,7 @@ def add_flower():
 def clear_flowers():
     global flower_list
     flower_list = []
-    return render_template('flowers_cleared.html')
+    return render_template('lab2/flowers_cleared.html')
 
 
 @lab2.route('/lab2/flowers/delete/<int:flower_id>')
@@ -78,19 +78,19 @@ def example():
         {'name': 'Мандарины', 'price': 95},
         {'name': 'Манго', 'price': 321}
     ]
-    return render_template('example.html', name=name, group=group, 
+    return render_template('lab2/example.html', name=name, group=group, 
                            course=course, number=number, fruits=fruits)
 
 
 @lab2.route('/lab2/')
 def lab():
-    return render_template('lab2.html')
+    return render_template('lab2/lab2.html')
 
 
 @lab2.route('/lab2/filters')
 def filters():
     phrase = "0 <b>сколько</b> <u>нам</u> <i>открытий</i> чудных..."
-    return render_template('filter.html', phrase=phrase)
+    return render_template('lab2/filter.html', phrase=phrase)
 
 
 @lab2.route('/lab2/calc/')
@@ -120,7 +120,7 @@ def calc_ab(a, b):
     power = a ** b
 
     return render_template(
-        'calc.html',
+        'lab2/calc.html',
         a=a, b=b,
         add=add, sub=sub, mul=mul, div=div, power=power
     )
@@ -141,7 +141,7 @@ def show_books():
         {"author": "Б. Л. Пастернак", "title": "Доктор Живаго", "genre": "Роман", "pages": 370},
         {"author": "Кир Булычёв", "title": "Сто лет тому вперёд", "genre": "Научная фантастика", "pages": 352}
     ]
-    return render_template('books.html', books=books)
+    return render_template('lab2/books.html', books=books)
 
 
 @lab2.route('/lab2/objects/')
@@ -177,4 +177,4 @@ def show_objects():
         {"name": "Кики", "image": "dog04.jpg", "desc": "Кажется злой, но на самом деле милашка (хоть и чихуахуа)."},
         {"name": "Жужа", "image": "dog05.jpg", "desc": "Похожа на домовёнка (возможно им и является)."}
     ]
-    return render_template('objects.html', cats=cats, hamsters=hamsters, monkeys=monkeys, dogs=dogs)
+    return render_template('lab2/objects.html', cats=cats, hamsters=hamsters, monkeys=monkeys, dogs=dogs)
