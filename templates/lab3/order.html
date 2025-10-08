@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 3{% endblock %}
+
+{% block main %}
+<link rel="stylesheet" href="{{ url_for('static', filename='lab3.css') }}">
+
+<div class="order-container">
+    <h1>Заказ кофейного напитка</h1>
+
+    <form action="/lab3/pay">
+        <div class="drink-section">
+            <h2>Напиток</h2>
+            <div class="drink-options">
+                <label class="option-label">
+                    <span>
+                        <input type="radio" value="espresso" name="drink" checked>Эспрессо
+                    </span>
+                    <span class="price">129 ₽</span>
+                </label>
+                <label class="option-label">
+                    <span>
+                        <input type="radio" value="americano" name="drink">Американо
+                    </span>
+                    <span class="price">219 ₽</span>
+                </label>
+                <label class="option-label">
+                    <span>
+                        <input type="radio" value="latte" name="drink">Латте
+                    </span>
+                    <span class="price">229 ₽</span>
+                </label>
+                <label class="option-label">
+                    <span>
+                        <input type="radio" value="cappuccino" name="drink">Капучино
+                    </span>
+                    <span class="price">229 ₽</span>
+                </label>
+                <label class="option-label">
+                    <span>
+                        <input type="radio" value="raff" name="drink">Раф
+                    </span>
+                    <span class="price">259 ₽</span>
+                </label>
+                <label class="option-label">
+                    <span>
+                        <input type="radio" value="flat-white" name="drink">Флэт-уайт
+                    </span>
+                    <span class="price">189 ₽</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="additives-section">
+            <h2>Добавки</h2>
+            <div class="additives-options">
+                <label class="option-label">
+                    <span>
+                        <input type="checkbox" name="milk">Молоко
+                    </span>
+                    <span class="price">+80 ₽</span>
+                </label>
+                <label class="option-label">
+                    <span>
+                        <input type="checkbox" name="sugar">Сахар
+                    </span>
+                    <span class="price">+10 ₽</span>
+                </label>
+                <label class="option-label">
+                    <span>
+                        <input type="checkbox" name="cinnamon">Корица
+                    </span>
+                    <span class="price">+10 ₽</span>
+                </label>
+                <label class="option-label">
+                    <span>
+                        <input type="checkbox" name="syrup">Сироп
+                    </span>
+                    <span class="price">+30 ₽</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="location-button">
+            <button type="submit">Перейти к оплате</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

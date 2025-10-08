@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 3{% endblock %}
+
+{% block main %}
+<link rel="stylesheet" href="{{ url_for('static', filename='lab3.css') }}">
+
+<div class="order-container">
+    <div class="success-message">
+        <h1>Спасибо, что выбрали нас! ☕</h1>
+        
+        <div class="total-price">
+            Ваш заказ успешно оплачен на сумму <b>{{ price }} ₽</b>
+        </div>
+
+        <div style="font-size: 18px;">
+            Ожидайте доставку
+        </div>
+
+        <div class="location-button">
+            <a href="/lab3/order" class="butt">Сделать новый заказ</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

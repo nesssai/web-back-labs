@@ -34,3 +34,41 @@ def form1():
     if age == '':
         errors['age'] = 'Заполните поле!'
     return render_template('lab3/form1.html', user=user, age=age, sex=sex, errors=errors)
+
+@lab3.route('/lab3/order')
+def order():
+    return render_template('lab3/order.html')
+
+@lab3.route('/lab3/pay')
+def pay():
+    price = 0
+    drink = request.args.get('drink')
+    
+    if drink == 'espresso':
+        price = 129
+    elif drink == 'americano':
+        price = 219
+    elif drink == 'latte':
+        price = 229
+    elif drink == 'cappuccino':
+        price = 229
+    elif drink == 'raff':
+        price = 259
+    else:
+        price = 189
+    
+    if request.args.get('milk') == 'on':
+        price += 80
+    if request.args.get('sugar') == 'on':
+        price += 10
+    if request.args.get('cinnamon') == 'on':
+        price += 10
+    if request.args.get('syrup') == 'on':
+        price += 30
+    
+    return render_template('lab3/pay.html', price=price)
+
+@lab3.route('/lab3/success')
+def success():
+    price = request.args.get('price')
+    return render_template('lab3/success.html', price=price)

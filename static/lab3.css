@@ -1,0 +1,123 @@
+.order-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.drink-section, .additives-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 16px;
+    background: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.drink-options, .additives-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.option-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    border: 2px solid #e9ecef;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.option-label:hover {
+    border-color: #64bfba;
+    background: #ffffff;
+}
+
+.price {
+    font-weight: bold;
+    color: #28a745;
+    margin-left: 10px;
+}
+
+button {
+    background: #64bfba;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #498a87;
+}
+
+.butt {
+    background: #64bfba;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.butt:hover {
+    background: #498a87;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.location-button {
+    text-align: center; 
+    margin-top: 30px;
+}
+
+.payment-form {
+    max-width: 400px;
+    margin: 20px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 16px;
+    box-sizing: border-box;
+}
+
+.success-message {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.total-price {
+    font-size: 24px;
+    color: #28a745;
+    margin: 20px 0;
+}
