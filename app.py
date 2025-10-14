@@ -13,8 +13,8 @@ access_log = []
 
 @app.errorhandler(404)
 def not_found(err):
-    img_path = url_for('static', filename='404.jpg')
-    css_path = url_for('static', filename='404.css')
+    img_path = url_for('static', filename='lab1/404.jpg')
+    css_path = url_for('static', filename='lab1/404.css')
 
     # Определяем IP-адрес
     xff = request.headers.get('X-Forwarded-For', '')
