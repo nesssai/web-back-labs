@@ -9,7 +9,7 @@
         {% for c in cats %}
             <div style="width:240px; padding:8px;">
                 <div style="height:160px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
-                    <img src="{{ url_for('static', filename='cats/' ~ c.image) }}" 
+                    <img src="{{ url_for('static', filename='lab2/cats/' ~ c.image) }}" 
                         style="max-width:100%; max-height:100%; display:block;">
                 </div>
                 <h3>{{ c.name }}</h3>
@@ -24,7 +24,7 @@
         {% for h in hamsters %}
             <div style="width:240px; padding:8px;">
                 <div style="height:160px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
-                    <img src="{{ url_for('static', filename='hamsters/' ~ h.image) }}" 
+                    <img src="{{ url_for('static', filename='lab2/hamsters/' ~ h.image) }}" 
                         style="max-width:100%; max-height:100%; display:block;">
                 </div>
                 <h3>{{ h.name }}</h3>
@@ -39,7 +39,7 @@
         {% for m in monkeys %}
             <div style="width:240px; padding:8px;">
                 <div style="height:160px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
-                    <img src="{{ url_for('static', filename='monkeys/' ~ m.image) }}" 
+                    <img src="{{ url_for('static', filename='lab2/monkeys/' ~ m.image) }}" 
                         style="max-width:100%; max-height:100%; display:block;">
                 </div>
                 <h3>{{ m.name }}</h3>
@@ -54,7 +54,7 @@
         {% for d in dogs %}
             <div style="width:240px; padding:8px;">
                 <div style="height:160px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
-                    <img src="{{ url_for('static', filename='dogs/' ~ d.image) }}" 
+                    <img src="{{ url_for('static', filename='lab2/dogs/' ~ d.image) }}" 
                         style="max-width:100%; max-height:100%; display:block;">
                 </div>
                 <h3>{{ d.name }}</h3>
