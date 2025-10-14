@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 3{% endblock %}
+
+{% block main %}
+    <h1>Поиск товаров (смартфоны)</h1>
+
+    <form>
+        <div>
+            <label>Минимальная цена:</label>
+            <input type="number" name="min_price" value="{{ min_price }}" 
+                placeholder="{{ products | map(attribute='price') | min | default(0) | int }}">
+        </div>
+        
+        <div>
+            <label>Максимальная цена:</label>
+            <input type="number" name="max_price" value="{{ max_price }}" 
+                placeholder="{{ products | map(attribute='price') | max | default(0) | int }}">
+        </div>
+        
+        <div>
+            <button type="submit">Искать</button>
+            <a href="/lab3/search/reset">Сброс</a>
+        </div>
+    </form>
+
+    {% if products %}
+        <div style="margin-top: 15px;">Найдено товаров: {{ count }}</div>
+        
+        <table border="1" cellpadding="6" cellspacing="0" style="margin-top: 5px;">
+            <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Цена</th>
+                    <th>Бренд</th>
+                    <th>Цвет</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price }} руб.</td>
+                    <td>{{ product.brand }}</td>
+                    <td>{{ product.color }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div style="margin-top: 15px;">Не найдено ни одного товара</div>
+    {% endif %}
+{% endblock %}

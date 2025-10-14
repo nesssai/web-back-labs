@@ -180,3 +180,78 @@ def ticket_result():
                          baggage=baggage, age=age_int, departure=departure,
                          destination=destination, date=date, insurance=insurance,
                          price=price, ticket_type=ticket_type)
+
+products = [
+    {'name': 'iPhone 16 Pro Max', 'price': 120000, 'brand': 'Apple', 'color': 'natural titanium'},
+    {'name': 'Samsung Galaxy S24 Ultra', 'price': 110000, 'brand': 'Samsung', 'color': 'titanium'},
+    {'name': 'Xiaomi 14 Ultra', 'price': 85000, 'brand': 'Xiaomi', 'color': 'white'},
+    {'name': 'Google Pixel 9 Pro', 'price': 75000, 'brand': 'Google', 'color': 'obsidian'},
+    {'name': 'OnePlus 12', 'price': 70000, 'brand': 'OnePlus', 'color': 'emerald forest'},
+    {'name': 'iPhone 16', 'price': 95000, 'brand': 'Apple', 'color': 'midnight'},
+    {'name': 'Samsung Galaxy A55', 'price': 35000, 'brand': 'Samsung', 'color': 'lavender'},
+    {'name': 'Xiaomi Redmi Note 13', 'price': 22000, 'brand': 'Xiaomi', 'color': 'blue mist'},
+    {'name': 'Realme GT Neo 6', 'price': 32000, 'brand': 'Realme', 'color': 'starry blue'},
+    {'name': 'Oppo Find X7', 'price': 80000, 'brand': 'Oppo', 'color': 'black'},
+    {'name': 'Vivo X110', 'price': 72000, 'brand': 'Vivo', 'color': 'diamond black'},
+    {'name': 'iPhone SE (3rd Gen)', 'price': 45000, 'brand': 'Apple', 'color': 'starlight'},
+    {'name': 'Samsung Galaxy Z Fold6', 'price': 150000, 'brand': 'Samsung', 'color': 'gray'},
+    {'name': 'Xiaomi Poco F6', 'price': 38000, 'brand': 'Xiaomi', 'color': 'black'},
+    {'name': 'Nokia G60', 'price': 28000, 'brand': 'Nokia', 'color': 'blue'},
+    {'name': 'Sony Xperia 1 VI', 'price': 90000, 'brand': 'Sony', 'color': 'black'},
+    {'name': 'Huawei P60 Pro', 'price': 78000, 'brand': 'Huawei', 'color': 'rhodium silver'},
+    {'name': 'Motorola Edge 50', 'price': 40000, 'brand': 'Motorola', 'color': 'green'},
+    {'name': 'Asus ROG Phone 9', 'price': 82000, 'brand': 'Asus', 'color': 'black'},
+    {'name': 'Infinix Note 40', 'price': 24000, 'brand': 'Infinix', 'color': 'blue'}
+]
+
+@lab3.route('/lab3/search')
+def search():
+    min_price = request.args.get('min_price')
+    max_price = request.args.get('max_price')
+
+    errors = {}
+
+    if not min_price and not max_price:
+        min_price = request.cookies.get('min_price') or None
+        max_price = request.cookies.get('max_price') or None
+    
+    filtered_products = products
+    
+    min_val = float(min_price) if min_price else 0
+    max_val = float(max_price) if max_price else float('inf')
+            
+    if min_val > max_val:
+        min_val, max_val = max_val, min_val
+        min_price, max_price = max_price, min_price
+            
+    filtered_products = [
+        p for p in products 
+        if min_val <= p['price'] <= max_val
+    ]
+    
+    resp = make_response(render_template('lab3/search.html',
+                                       products=filtered_products,
+                                       min_price=min_price or '',
+                                       max_price=max_price or '',
+                                       count=len(filtered_products),
+                                       errors=errors))
+
+    if not errors:
+        if min_price:
+            resp.set_cookie('min_price', min_price)
+        else:
+            resp.delete_cookie('min_price')
+        
+        if max_price:
+            resp.set_cookie('max_price', max_price)
+        else:
+            resp.delete_cookie('max_price')
+
+    return resp
+
+@lab3.route('/lab3/search/reset')
+def search_reset():
+    resp = make_response(redirect('/lab3/search'))
+    resp.set_cookie('min_price', '', max_age=0)
+    resp.set_cookie('max_price', '', max_age=0)
+    return resp
