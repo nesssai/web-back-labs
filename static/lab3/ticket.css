@@ -1,0 +1,104 @@
+.ticket-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 16px;
+    background: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-section h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: rgb(34, 34, 34);
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #64bfba;
+    outline: none;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border: 2px solid #e9ecef;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.checkbox-label:hover {
+    border-color: #64bfba;
+    background: #ffffff;
+}
+
+.checkbox-label input {
+    margin-right: 10px;
+}
+
+.submit-section {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.butt {
+    background: #64bfba;
+    color: white;
+    padding: 12px 40px;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.butt:hover {
+    background: #498a87;
+}
+
+.error {
+    color: #cc0000;
+    background-color: #ffecec;
+    border: 1px solid #f5c6cb;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}

@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 3{% endblock %}
+
+{% block main %}
+<link rel="stylesheet" href="{{ url_for('static', filename='lab3/ticket.css') }}">
+
+<div class="ticket-container">
+    <h1>Железнодорожный билет</h1>
+
+    <form action="/lab3/ticket_result">
+        <div class="form-section">
+            <h3>Персональные данные</h3>
+            <div class="form-group">
+                <label>ФИО пассажира:</label>
+                <input type="text" placeholder="Введите своё ФИО" name="fio" value="{{ fio or '' }}">
+                {% if errors and errors.fio %}
+                    <span class="error">{{ errors.fio }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label>Возраст:</label>
+                <input type="number" name="age" placeholder="Введите возраст" value="{{ age or '' }}">
+                {% if errors and errors.age %}
+                    <span class="error">{{ errors.age }}</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>Детали поездки</h3>
+            <div class="form-group">
+                <label>Пункт выезда:</label>
+                <input type="text" name="departure" placeholder="Откуда едем?" value="{{ departure or '' }}">
+                {% if errors and errors.departure %}
+                    <span class="error">{{ errors.departure }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label>Пункт назначения:</label>
+                <input type="text" name="destination" placeholder="Куда едем?" value="{{ destination or '' }}">
+                {% if errors and errors.destination %}
+                    <span class="error">{{ errors.destination }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label>Дата поездки:</label>
+                <input type="date" name="date" value="{{ date or '' }}">
+                {% if errors and errors.date %}
+                    <span class="error">{{ errors.date }}</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>Выбор места</h3>
+            <div class="form-group">
+                <label>Полка:</label>
+                <select name="shelf">
+                    <option value="lower" {{ 'selected' if shelf == 'lower' }}>Нижняя</option>
+                    <option value="upper" {{ 'selected' if shelf == 'upper' }}>Верхняя</option>
+                    <option value="upper_side" {{ 'selected' if shelf == 'upper_side' }}>Верхняя боковая</option>
+                    <option value="lower_side" {{ 'selected' if shelf == 'lower_side' }}>Нижняя боковая</option>
+                </select>
+                {% if errors and errors.shelf %}
+                    <span class="error">{{ errors.shelf }}</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>Дополнительные услуги</h3>
+            <div class="checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="linen" {{ 'checked' if linen == 'on' }}> С бельём
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" name="baggage" {{ 'checked' if baggage == 'on' }}> С багажом
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" name="insurance" {{ 'checked' if insurance == 'on' }}> Страховка
+                </label>
+            </div>
+        </div>
+
+        <div class="submit-section">
+            <button type="submit" class="butt">Оформить билет</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

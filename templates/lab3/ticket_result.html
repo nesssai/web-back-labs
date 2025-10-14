@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 3{% endblock %}
+
+{% block main %}
+<link rel="stylesheet" href="{{ url_for('static', filename='lab3/ticket_result.css') }}">
+
+<div class="ticket-container">
+    <div class="thank-you">
+        <h1>Благодарим вас за покупку!</h1>
+        <p>Ваш билет успешно оформлен</p>
+    </div>
+
+    <div class="ticket">
+        <div class="ticket-header">
+            <h2>Железнодорожный билет</h2>
+            {% if age < 18 %}
+                <span class="child-ticket">Детский билет</span>
+            {% endif %}
+        </div>
+        
+        <div class="ticket-content">
+            <div class="ticket-row">
+                <span class="ticket-label">ФИО пассажира:</span>
+                <span class="ticket-value">{{ fio }}</span>
+            </div>
+            <div class="ticket-row">
+                <span class="ticket-label">Возраст:</span>
+                <span class="ticket-value">{{ age }} лет</span>
+            </div>
+            <div class="ticket-row">
+                <span class="ticket-label">Тип полки:</span>
+                <span class="ticket-value">
+                    {% if shelf == 'lower' %}Нижняя
+                    {% elif shelf == 'upper' %}Верхняя
+                    {% elif shelf == 'upper_side' %}Верхняя боковая
+                    {% elif shelf == 'lower_side' %}Нижняя боковая
+                    {% endif %}
+                </span>
+            </div>
+            <div class="ticket-row">
+                <span class="ticket-label">Маршрут:</span>
+                <span class="ticket-value">{{ departure }} → {{ destination }}</span>
+            </div>
+            <div class="ticket-row">
+                <span class="ticket-label">Дата поездки:</span>
+                <span class="ticket-value">{{ date }}</span>
+            </div>
+            <div class="ticket-row">
+                <span class="ticket-label">Бельё:</span>
+                <span class="ticket-value">{{ 'Да' if linen == 'on' else 'Нет' }}</span>
+            </div>
+            <div class="ticket-row">
+                <span class="ticket-label">Багаж:</span>
+                <span class="ticket-value">{{ 'Да' if baggage == 'on' else 'Нет' }}</span>
+            </div>
+            <div class="ticket-row">
+                <span class="ticket-label">Страховка:</span>
+                <span class="ticket-value">{{ 'Да' if insurance == 'on' else 'Нет' }}</span>
+            </div>
+        </div>
+        
+        <div class="ticket-price">
+            <div><b>Общая стоимость:</b></div>
+            <div class="price-amount">{{ price }} руб.</div>
+        </div>
+    </div>
+
+    <a href="/lab3/ticket" class="new-ticket">Оформить новый билет</a>
+</div>
+{% endblock %}
