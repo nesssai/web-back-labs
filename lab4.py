@@ -97,8 +97,10 @@ def tree():
     operation = request.form.get('operation')
 
     if operation == 'cut':
-        tree_count -= 1
+        if tree_count > 0:
+                tree_count -= 1
     elif operation == 'plant':
-        tree_count += 1
+        if tree_count < 15:
+                tree_count += 1
         
     return redirect ('/lab4/tree')
