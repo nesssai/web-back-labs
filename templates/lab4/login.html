@@ -5,10 +5,17 @@
 {% block main %}
     {% if authorized %}
         <h1>Добро пожаловать, {{ username }}!</h1>
-        <p><b>Ваш пол:</b> {{ gender_text }}</p>
+        <div>
+            <b>Ваш пол:</b> {{ gender_text }}
+        </div>
 
         <div>
-            <form action="/lab4/logout" method="post">
+            <div>
+                <a href="{{ url_for('lab4.users_list') }}">Список пользователей</a> | 
+                <a href="{{ url_for('lab4.edit_user') }}">Редактировать профиль</a>
+            </div>
+            
+            <form action="{{ url_for('lab4.logout') }}" method="post">
                 <button>Выход</button>
             </form>
         </div>
@@ -28,7 +35,7 @@
             </div>
 
             {% if error %}
-                <div class="error" style="margin: 8px 0;">{{ error }}</div>
+                <div class="error" style="margin: 8px 0; color: red;">{{ error }}</div>
             {% endif %}
 
             <div>
@@ -36,5 +43,9 @@
                 <button type="reset">Отмена</button>
             </div>
         </form>
+        
+        <div>
+            <a href="{{ url_for('lab4.register') }}">Зарегистрироваться</a>
+        </div>
     {% endif %}
 {% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block lab %}Редактировать профиль{% endblock %}
+
+{% block main %}
+    <h1>Редактировать профиль</h1>
+
+    <form method="post">
+        <div>
+            <label>Логин: <input type="text" name="login" value="{{ user.login }}"></label>
+        </div>
+        <div>
+            <label>Имя: <input type="text" name="name" value="{{ user.name }}"></label>
+        </div>
+        <div>
+            <label>Пол (М/Ж): <input type="text" name="gender" maxlength="1" style="width: 20px;" value="{{ user.gender }}"></label>
+        </div>
+
+        {% if error %}
+            <div class="error" style="margin: 5px 0;">{{ error }}</div>
+        {% endif %}
+
+        <hr>
+
+        <div style="font-style: italic; color: red; margin-bottom: 5px;">
+            Не заполняйте эти поля, чтобы сохранить текущий пароль после изменений
+        </div>
+
+        <div>
+            <label>Новый пароль: <input type="password" name="password"></label>
+        </div>
+        <div>
+            <label>Подтвердите пароль: <input type="password" name="password_confirm"></label>
+        </div>
+        <button type="submit">Сохранить</button>
+    </form>
+
+    <div><a href="{{ url_for('lab4.users_list') }}">Назад к списку</a></div>
+{% endblock %}
