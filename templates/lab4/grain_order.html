@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block lab %}Заказ зерна{% endblock %}
+
+{% block main %}
+    <h1>Форма заказа зерна</h1>
+
+    <form method="POST">
+        <div>
+            <label for="grain">Тип зерна:</label>
+            <select name="grain_type" id="grain">
+                <option value="barley" {% if selected_grain == 'barley' %}selected{% endif %}>
+                    Ячмень (12 000 руб/т)
+                </option>
+                <option value="oats" {% if selected_grain == 'oats' %}selected{% endif %}>
+                    Овёс (8 500 руб/т)
+                </option>
+                <option value="wheat" {% if selected_grain == 'wheat' %}selected{% endif %}>
+                    Пшеница (9 000 руб/т)
+                </option>
+                <option value="rye" {% if selected_grain == 'rye' %}selected{% endif %}>
+                    Рожь (15 000 руб/т)
+                </option>
+            </select>
+        </div>
+        
+        <div style="margin-top: 10px;">
+            <label for="weight">Вес (в тоннах):</label>
+            <input type="number" step="0.1" name="weight" id="weight" value="{{ weight_value or '' }}">
+        </div>
+
+        <div style="margin-top: 15px;">
+            <button type="submit">Рассчитать стоимость</button>
+        </div>
+    </form>
+
+    <hr>
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    {% if message %}
+        <div class="message">{{ message }}</div>
+    {% endif %}
+
+{% endblock %}

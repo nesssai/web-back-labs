@@ -179,3 +179,62 @@ def fridge():
                 snowflakes = 1
 
     return render_template('lab4/fridge.html', error=error, message=message, snowflakes=snowflakes, temp=temp_str)
+
+@lab4.route('/lab4/grain', methods=['GET', 'POST'])
+def grain_order():
+    prices = {
+        'barley': 12000,
+        'oats': 8500,
+        'wheat': 9000,
+        'rye': 15000
+    }
+
+    grain_names = {
+        'barley': 'ячмень',
+        'oats': 'овёс',
+        'wheat': 'пшеницу',
+        'rye': 'рожь'
+    }
+    
+    error = None
+    message = None
+    selected_grain = ''
+    weight_value = ''
+
+    if request.method == 'POST':
+        selected_grain = request.form.get('grain_type')
+        weight_value = request.form.get('weight')
+        
+        if not weight_value:
+            error = "Ошибка: вес не был указан"
+        else:
+            weight = float(weight_value)
+                
+            if weight <= 0:
+                error = "Ошибка: указанный вес меньше или равен 0"
+                
+            elif weight > 100:
+                error = "Такого объёма сейчас нет в наличии"
+                
+            else:
+                price_per_ton = prices.get(selected_grain, 0)
+                total_cost = weight * price_per_ton
+                discount_message = ""
+                    
+                if weight > 10:
+                    discount_amount = total_cost * 0.10
+                    total_cost -= discount_amount
+                    discount_message = (
+                        f"Применена скидка 10% за большой объём. "
+                        f"Размер скидки: {discount_amount:.2f} руб."
+                    )
+
+                display_name = grain_names.get(selected_grain, 'зерно')
+                    
+                message = (
+                    f"Заказ успешно сформирован. Вы заказали {display_name}. "
+                    f"Вес: {weight} т. Сумма к оплате: {total_cost:.2f} руб. "
+                    f"{discount_message}"
+                )
+
+    return render_template('lab4/grain_order.html', error=error, message=message, selected_grain=selected_grain, weight_value=weight_value)

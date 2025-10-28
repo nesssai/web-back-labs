@@ -48,3 +48,13 @@ footer {
     border-radius: 4px;
     font-size: 14px;
 }
+
+.message {
+    display: inline-block;
+    color: #4F6F4F;
+    background-color: #E6F2E6;
+    border: 1px solid #B3CCB3;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+}
