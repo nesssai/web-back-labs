@@ -33,8 +33,8 @@ def add():
     x1 = request.form.get('x1', '')
     x2 = request.form.get('x2', '')
     
-    a = float(x1) if x1.strip() != '' else 0.0
-    b = float(x2) if x2.strip() != '' else 0.0
+    a = int(x1) if x1.strip() != '' else 0
+    b = int(x2) if x2.strip() != '' else 0
     result = a + b
     return render_template('lab4/add.html', x1=a, x2=b, result=result)
 
@@ -42,14 +42,16 @@ def add():
 def mul_form():
     return render_template('lab4/mul-form.html')
 
+
 @lab4.route('/lab4/mul', methods=['POST'])
 def mul():
     x1 = request.form.get('x1', '')
     x2 = request.form.get('x2', '')
     
-    a = float(x1) if x1.strip() != '' else 1.0
-    b = float(x2) if x2.strip() != '' else 1.0
+    a = int(x1) if x1.strip() != '' else 1
+    b = int(x2) if x2.strip() != '' else 1
     result = a * b
+    
     return render_template('lab4/mul.html', x1=a, x2=b, result=result)
 
 @lab4.route('/lab4/sub-form')
@@ -63,8 +65,8 @@ def sub():
     if x1.strip() == '' or x2.strip() == '':
         return render_template('lab4/sub.html', error='Оба поля должны быть заполнены')
     
-    a = float(x1)
-    b = float(x2)
+    a = int(x1)
+    b = int(x2)
     result = a - b
     return render_template('lab4/sub.html', x1=a, x2=b, result=result)
 
@@ -79,9 +81,9 @@ def power():
     if x1.strip() == '' or x2.strip() == '':
         return render_template('lab4/pow.html', error='Оба поля должны быть заполнены')
     
-    a = float(x1)
-    b = float(x2)
-    if a == 0.0 and b == 0.0:
+    a = int(x1)
+    b = int(x2)
+    if a == 0 and b == 0:
         return render_template('lab4/pow.html', error='0^0 не определено')
     
     result = a ** b
