@@ -1,0 +1,36 @@
+h1 {
+    color: #64bfba;
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+div:first-of-type {
+    font-size: 17px;
+    color: #888888;
+    margin-bottom: 20px;
+}
+
+ol {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 15px 0;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+ol li {
+    padding: 0;
+    margin: 0 5px 5px 5px;
+}
+
+.user-info {
+    border-right: 5px solid #64bfba;
+    color: #888888;
+    padding: 10px 15px;
+    font-style: italic;
+    display: block; 
+    width: fit-content; 
+    margin-left: auto;
+}
