@@ -18,6 +18,6 @@
     </ol>
 
     <div class="user-info">
-        Пользователь: {{ username }}
+        Пользователь: {% if login %}{{ login }}{% else %}Anonymous{% endif %}
     </div>
 {% endblock %}
