@@ -25,6 +25,19 @@
         </div>
 
         <div>
+            <label>
+                <input type="checkbox" name="is_public" value="1" {% if article['is_public'] %}checked{% endif %}>
+                Сделать публичной
+            </label>
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" name="is_favorite" value="1" {% if article['is_favorite'] %}checked{% endif %}>
+                Добавить в любимые
+            </label>
+        </div>
+
+        <div>
             <button type="submit">Сохранить изменения</button>
         </div>
     </form>

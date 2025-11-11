@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 5{% endblock %}
+
+{% block main %}
+    <h1>Публичные статьи</h1>
+
+    {% for article in articles %}
+        <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 20px;">
+            <h2>{{ article['title'] }}</h2>
+            <blockquote>{{ article['article_text'] }}</blockquote>
+
+            <p style="font-weight: bold; margin-bottom: 5px;">
+                Лайков: {{ article['likes'] if article['likes'] else 0 }}
+            </p>
+
+            <form action="{{ url_for('lab5.like_article', article_id=article['id']) }}" method="POST">
+                <button type="submit">
+                    ❤️ Лайкнуть!
+                </button>
+            </form>
+        </div>
+    {% else %}
+        <p>Пока нет ни одной публичной статьи.</p>
+    {% endfor %}
+{% endblock %}

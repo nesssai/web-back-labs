@@ -3,7 +3,7 @@
 {% block lab %}Лабораторная работа 5{% endblock %}
 
 {% block main %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='lab5/form.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='lab5/lab5_13.css') }}">
 
     <div id="form-container">
         <h1>Регистрация</h1>
@@ -13,6 +13,11 @@
         {% endif %}
 
         <form action="/lab5/register" method="post">
+            <div>
+                <label>
+                    Ваше имя: <input type="text" name="real_name">
+                </label>
+            </div>
             <div>
                 <label>
                     Логин: <input type="text" name="login">

@@ -1,0 +1,68 @@
+#form-container {
+    max-width: 400px; 
+    margin: 40px auto; 
+    padding: 30px;
+    background-color: #f6f1ec;
+    border: none;
+    border-radius: 16px;
+}
+
+#form-container h1 {
+    text-align: center;
+    color: #64bfba;
+    margin-bottom: 15px;
+    font-size: 34px;
+}
+
+#form-container form div {
+    margin-bottom: 15px;
+}
+
+#form-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgb(34, 34, 34);
+}
+
+#form-container input[type="text"],
+#form-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #b5eaec;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+#form-container input[type="text"]:focus,
+#form-container input[type="password"]:focus {
+    border-color: #64bfba;
+    outline: none;
+    box-shadow: 0 0 5px rgba(100, 191, 186, 0.5);
+}
+
+#form-container button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background-color: #64bfba;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+#form-container button[type="submit"]:hover {
+    background-color: #4ca6a1;
+}
+
+#form-container .error {
+    text-align: center;
+    margin-bottom: 20px;
+}
