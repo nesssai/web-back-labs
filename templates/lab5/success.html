@@ -3,11 +3,56 @@
 {% block lab %}Лабораторная работа 5{% endblock %}
 
 {% block main %}
-    <h1>🎉 Успешная регистрация!</h1>
-    
-    <p>Поздравляем, {{ login }}! Вы успешно зарегистрированы в базе знаний.</p>
+    <style>
+        .success-page {
+            text-align: center;
+            padding: 40px 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
 
-    <p>
-        <a href="/lab5">Перейти к пользованию базой знаний</a>
-    </p>
+        .success-title {
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .success-message {
+            font-size: 16px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f6f1ec;
+            border-radius: 16px;
+            border-left: 6px solid #64bfba;
+        }
+
+        .success-link {
+            padding: 12px;
+            margin-top: 20px;
+            background-color: #64bfba;
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .success-link:hover {
+            background-color: #4ca6a1;
+        }
+    </style>
+
+    <div class="success-page">
+        <h1 class="success-title">🎉 Успешная регистрация!</h1>
+        
+        <div class="success-message">
+            Поздравляем, <b>{{ login }}</b>! Вы успешно зарегистрированы в базе знаний.
+        </div>
+
+        <p>
+            <a href="/lab5" class="success-link">Перейти к пользованию базой знаний</a>
+        </p>
+    </div>
 {% endblock %}

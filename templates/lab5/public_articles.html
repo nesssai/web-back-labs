@@ -6,7 +6,7 @@
     <h1>Публичные статьи</h1>
 
     {% for article in articles %}
-        <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 20px;">
+        <div style="border: 1px solid #64bfba; border-radius: 16px; padding: 15px; margin-bottom: 20px;">
             <h2>{{ article['title'] }}</h2>
             <blockquote>{{ article['article_text'] }}</blockquote>
 
@@ -20,6 +20,7 @@
                 </button>
             </form>
         </div>
+
     {% else %}
         <p>Пока нет ни одной публичной статьи.</p>
     {% endfor %}
