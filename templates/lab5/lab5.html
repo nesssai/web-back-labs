@@ -20,4 +20,13 @@
     <div class="user-info">
         Пользователь: {% if login %}{{ login }}{% else %}Anonymous{% endif %}
     </div>
+
+    {% if login %}
+        <a href="{{ url_for('lab5.logout') }}" class="button-link" style="display: block; 
+                                                                        width: fit-content; 
+                                                                        margin-left: auto;
+                                                                        margin-top: 8px">
+            Выход🚪
+        </a>
+    {% endif %}
 {% endblock %}
