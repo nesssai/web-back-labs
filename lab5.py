@@ -181,7 +181,11 @@ def edit_article(article_id):
         cur.execute("SELECT id FROM users WHERE login = %s;", (login,))
     else:
         cur.execute("SELECT id FROM users WHERE login = ?;", (login,))
-    user_id = cur.fetchone()['id']
+    user_row = cur.fetchone()
+    if not user_row:
+        db_close(conn, cur)
+        return redirect('/lab5/login')
+    user_id = user_row['id']
 
     if request.method == 'POST':
         title = request.form.get('title')
@@ -200,22 +204,23 @@ def edit_article(article_id):
             return render_template('lab5/edit_article.html', article=article, error="Заполните все поля!")
 
         if current_app.config['DB_TYPE'] == 'postgres':
-            cur.execute("UPDATE articles SET title = %s, article_text = %s WHERE id = %s AND user_id = %s;", 
-                        (title, article_text, article_id, user_id))
+            cur.execute(
+                "UPDATE articles SET title = %s, article_text = %s, is_public = %s, is_favorite = %s WHERE id = %s AND user_id = %s;",
+                (title, article_text, is_public, is_favorite, article_id, user_id)
+            )
         else:
-            cur.execute("UPDATE articles SET title = ?, article_text = ? WHERE id = ? AND user_id = ?;", 
-                        (title, article_text, article_id, user_id))
-        
+            cur.execute(
+                "UPDATE articles SET title = ?, article_text = ?, is_public = ?, is_favorite = ? WHERE id = ? AND user_id = ?;",
+                (title, article_text, is_public, is_favorite, article_id, user_id)
+            )
+
         db_close(conn, cur)
         return redirect('/lab5/list')
 
     if current_app.config['DB_TYPE'] == 'postgres':
-        cur.execute("UPDATE articles SET title = %s, article_text = %s, is_public = %s, is_favorite = %s WHERE id = %s AND user_id = %s;", 
-                    (title, article_text, is_public, is_favorite, article_id, user_id))
+        cur.execute("SELECT * FROM articles WHERE id = %s AND user_id = %s;", (article_id, user_id))
     else:
-        cur.execute("UPDATE articles SET title = ?, article_text = ?, is_public = ?, is_favorite = ? WHERE id = ? AND user_id = ?;", 
-                    (title, article_text, is_public, is_favorite, article_id, user_id))
-    
+        cur.execute("SELECT * FROM articles WHERE id = ? AND user_id = ?;", (article_id, user_id))
     article = cur.fetchone()
     db_close(conn, cur)
 
