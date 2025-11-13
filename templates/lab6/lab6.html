@@ -25,24 +25,41 @@
 
             ul.innerHTML = '';
 
+            let totalCost = 0;
+            let userHasRentals = false;
+
             for (let i = 0; i < office_list.length; i++) {
                 const office = office_list[i];
                 const li = document.createElement('li');
-                li.innerText = `${office.number}: ${office.tenant || 'свободен'}`;
+                if (office.tenant && office.tenant === "{{ current_user }}") {
+                    li.innerText = `Офис ${office.number}: арендован вами - ${office.price} руб./мес.`;
+                    userHasRentals = true;
+                    totalCost += office.price;
 
-                const bookingButton = document.createElement('button');
-                bookingButton.innerText = 'зарезервировать';
-                bookingButton.onclick = function() {booking(office.number)};
-                li.appendChild(bookingButton);
-
-                if (office.tenant && office.tenant !== '') {
                     const freeButton = document.createElement('button');
                     freeButton.innerText = 'освободить';
                     freeButton.onclick = function() { cancellation(office.number) };
                     li.appendChild(freeButton);
+                } else if (office.tenant) {
+                    li.innerText = `Офис ${office.number}: арендован - ${office.price} руб./мес.`;
+                } else {
+                    li.innerText = `Офис ${office.number}: свободен - ${office.price} руб./мес.`;
+
+                    const bookingButton = document.createElement('button');
+                    bookingButton.innerText = 'зарезервировать';
+                    bookingButton.onclick = function() {booking(office.number)};
+                    li.appendChild(bookingButton);
                 }
 
                 ul.appendChild(li);
+            }
+
+            const totalCostElem = document.getElementById('total-cost');
+            if (totalCost > 0) {
+                totalCostElem.innerText = `Общая стоимость вашей аренды: ${totalCost} руб./мес.`;
+            } 
+            else {
+                totalCostElem.innerText = 'У вас нет арендованных офисов';
             }
         });
     }
@@ -137,5 +154,6 @@
 
     <h1>Список кабинетов</h1>
     <ul id="office-list"></ul>
+    <div id="total-cost" style="margin-top: 20px; font-weight: bold; color: #333;"></div>
 
 {% endblock %}
