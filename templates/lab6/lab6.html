@@ -22,6 +22,9 @@
         .then(function(data) {
             const office_list = data.result;
             const ul = document.getElementById('office-list');
+
+            ul.innerHTML = '';
+
             for (let i = 0; i < office_list.length; i++) {
                 const office = office_list[i];
                 const li = document.createElement('li');
@@ -31,6 +34,13 @@
                 bookingButton.innerText = 'зарезервировать';
                 bookingButton.onclick = function() {booking(office.number)};
                 li.appendChild(bookingButton);
+
+                if (office.tenant && office.tenant !== '') {
+                    const freeButton = document.createElement('button');
+                    freeButton.innerText = 'освободить';
+                    freeButton.onclick = function() { cancellation(office.number) };
+                    li.appendChild(freeButton);
+                }
 
                 ul.appendChild(li);
             }
@@ -61,6 +71,49 @@
                         break;
                     case 2:
                         alert('Офис уже арендуется');
+                        break;
+                    case 3:
+                        alert('Офис не найден');
+                        break;
+                    case -32601:
+                        alert('Странная ошибка');
+                        break;
+                }
+            } 
+            else {
+                document.getElementById('office-list').innerHTML = '';
+                getOfficeList();
+            }
+        });
+    }
+
+    function cancellation(officeNumber) {
+        const url = '/lab6/json-rpc-api/';
+        const json = {
+            'jsonrpc': '2.0',
+            'method': 'cancellation',
+            'params': officeNumber,
+            'id': Math.round(Math.random() * 1000)
+        };
+        fetch(url, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(json)
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            if (data.error) {
+                switch(data.error.code) {
+                    case 1:
+                        alert('Вы не авторизованы, пожалуйста, авторизуйтесь');
+                        break;
+                    case 3:
+                        alert('Офис не найден');
+                        break;
+                    case 4:
+                        alert('Нельзя снять аренду чужого офиса');
                         break;
                     case -32601:
                         alert('Странная ошибка');
