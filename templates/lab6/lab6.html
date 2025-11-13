@@ -46,7 +46,7 @@
                     li.innerText = `Офис ${office.number}: свободен - ${office.price} руб./мес.`;
 
                     const bookingButton = document.createElement('button');
-                    bookingButton.innerText = 'зарезервировать';
+                    bookingButton.innerText = 'забронировать';
                     bookingButton.onclick = function() {booking(office.number)};
                     li.appendChild(bookingButton);
                 }
@@ -59,7 +59,7 @@
                 totalCostElem.innerText = `Общая стоимость вашей аренды: ${totalCost} руб./мес.`;
             } 
             else {
-                totalCostElem.innerText = 'У вас нет арендованных офисов';
+                totalCostElem.innerText = 'У вас нет арендованных офисов. Самое время это исправить!';
             }
         });
     }
@@ -148,12 +148,73 @@
         getOfficeList();
     });
 </script>
+
+<style>
+    h1 {
+        color: #64bfba;
+        font-size: 40px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    #office-list {
+        list-style: none;
+        padding: 0;
+        display: grid;
+        gap: 15px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    #office-list li {
+        background: #f6f1ec;
+        padding: 20px;
+        border-radius: 16px;
+        border: 2px solid #d6c9b8;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.3s;
+    }
+
+    #office-list li:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border-color: #64bfba;
+    }
+
+    #office-list button {
+        padding: 8px 16px;
+        border-radius: 20px;
+        border: 2px solid #64bfba;
+        background-color: #fdf4ea;
+        color: #2a6f6b;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s;
+        margin-left: 15px;
+    }
+
+    #office-list button:hover {
+        background-color: #64bfba;
+        color: white;
+        transform: scale(1.05);
+    }
+
+    #total-cost {
+        text-align: center;
+        padding: 15px;
+        max-width: 600px;
+        margin: 20px auto 0;
+        font-size: 20px;
+    }
+</style>
 {% endblock %}
 
 {% block main %}
 
-    <h1>Список кабинетов</h1>
+    <h1>Список офисов для аренды</h1>
     <ul id="office-list"></ul>
-    <div id="total-cost" style="margin-top: 20px; font-weight: bold; color: #333;"></div>
+    <div id="total-cost"></div>
 
 {% endblock %}
