@@ -78,6 +78,20 @@
     border-color: #53a39f;
     transform: scale(1.05);
 }
+
+.error-message {
+    color: #cc0000;
+    background-color: #ffecec;
+    border: 1px solid #f5c6cb;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.error-message:empty {
+    display: none;
+}
 </style>
 {% endblock %}
 
@@ -124,6 +138,7 @@
         <label>
             Описание:
             <textarea id="description"></textarea>
+            <div id="description-error" class="error-message"></div>
         </label><br>
         
         <button onclick="sendFilm()">ОК</button>
