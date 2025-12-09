@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, abort
+from datetime import datetime
 
 lab7 = Blueprint('lab7', __name__)
 
@@ -39,6 +40,43 @@ films = [
     },
 ]
 
+def validate_film(film):
+    errors = {}
+
+    title = film.get('title', '').strip()
+    title_ru = film.get('title_ru', '').strip()
+    description = film.get('description', '').strip()
+    year_raw = film.get('year')
+
+    if title_ru == '':
+        errors['title_ru'] = 'Заполните название на русском'
+
+    if title == '' and title_ru == '':
+        errors['title'] = 'Заполните оригинальное название или название на русском'
+
+    if title == '' and title_ru != '':
+        film['title'] = title_ru
+
+    if description == '':
+        errors['description'] = 'Заполните описание'
+    elif len(description) > 2000:
+        errors['description'] = 'Описание не должно превышать 2000 символов'
+    else:
+        film['description'] = description
+
+    # Год: приводим к int и проверяем диапазон
+    try:
+        year = int(year_raw)
+        current_year = datetime.now().year
+        if year < 1895 or year > current_year:
+            errors['year'] = f'Год должен быть от 1895 до {current_year}'
+        else:
+            film['year'] = year
+    except (TypeError, ValueError):
+        errors['year'] = 'Некорректный год'
+
+    return errors
+
 @lab7.route('/lab7/rest-api/films/', methods=['GET'])
 def get_films():
     return films
@@ -60,13 +98,11 @@ def del_film(id):
 def put_film(id):
     if id < 0 or id >= len(films):
         abort(404)
-    film = request.get_json()
 
-    if film['description'] == '':
-        return {'description': 'Заполните описание'}, 400
-    
-    if film['title'] == '':
-        film['title'] = film['title_ru']
+    film = request.get_json()
+    errors = validate_film(film)
+    if errors:
+        return errors, 400
 
     films[id] = film
     return films[id]
@@ -74,12 +110,10 @@ def put_film(id):
 @lab7.route('/lab7/rest-api/films/', methods=['POST'])
 def add_film():
     film = request.get_json()
-    
-    if film['description'] == '':
-        return {'description': 'Заполните описание'}, 400
-    
-    if film['title'] == '':
-        film['title'] = film['title_ru']
-    
+
+    errors = validate_film(film)
+    if errors:
+        return errors, 400
+
     films.append(film)
     return {"id": len(films) - 1}, 201
