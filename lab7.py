@@ -59,19 +59,22 @@ def validate_film(film):
     else:
         film['description'] = description
 
-    year = int(year_raw)
-    current_year = datetime.now().year
-    if year < 1895 or year > current_year:
-        errors['year'] = f'Год должен быть от 1895 до {current_year}'
-    else:
-        film['year'] = year
+    try:
+        year = int(year_raw)
+        current_year = datetime.now().year
+        if year < 1895 or year > current_year:
+            errors['year'] = f'Год должен быть от 1895 до {current_year}'
+        else:
+            film['year'] = year
+    except ValueError:
+        errors['year'] = 'Заполните год'
 
     return errors
 
 @lab7.route('/lab7/rest-api/films/', methods=['GET'])
 def get_films():
     conn, cur = db_connect()
-    
+
     # Берем все фильмы, отсортированные по ID
     cur.execute("SELECT * FROM films ORDER BY id")
     films = cur.fetchall()

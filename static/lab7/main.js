@@ -126,6 +126,12 @@ function sendFilm() {
         description: document.getElementById('description').value
     }
 
+    // Сбрасываем старые ошибки перед новой отправкой
+    document.getElementById('title-error').innerText = '';
+    document.getElementById('title-ru-error').innerText = '';
+    document.getElementById('year-error').innerText = '';
+    document.getElementById('description-error').innerText = '';
+
     // Формируем URL. Если ID пустой — создаем новый ресурс (POST), иначе обновляем старый (PUT)
     const url = `/lab7/rest-api/films/${id}`;
     const method = id === '' ? 'POST' : 'PUT';
