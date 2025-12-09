@@ -61,15 +61,25 @@ def put_film(id):
     if id < 0 or id >= len(films):
         abort(404)
     film = request.get_json()
+
     if film['description'] == '':
         return {'description': 'Заполните описание'}, 400
+    
+    if film['title'] == '':
+        film['title'] = film['title_ru']
+
     films[id] = film
     return films[id]
 
 @lab7.route('/lab7/rest-api/films/', methods=['POST'])
 def add_film():
     film = request.get_json()
+    
     if film['description'] == '':
         return {'description': 'Заполните описание'}, 400
+    
+    if film['title'] == '':
+        film['title'] = film['title_ru']
+    
     films.append(film)
     return {"id": len(films) - 1}, 201

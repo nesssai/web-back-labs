@@ -5,6 +5,7 @@
 {% block script %}
 <script src="{{ url_for('static', filename='lab7/main.js') }}"></script>
 <style>
+/* Модальное окно */
 .modal {
     display: none;
     z-index: 100;
@@ -56,7 +57,7 @@
     background-color: #fdf4ea;
     color: #2a6f6b;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
 }
@@ -79,6 +80,81 @@
     transform: scale(1.05);
 }
 
+/* Таблица */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+thead {
+    background: #64bfba;
+    color: white;
+}
+
+th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+td {
+    padding: 12px 15px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+tbody tr:hover {
+    background-color: #f8f8f8;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Кнопки в таблице */
+td button {
+    padding: 6px 12px;
+    margin-right: 5px;
+    border: 2px solid #64bfba;
+    border-radius: 16px;
+    background-color: white;
+    color: #2a6f6b;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+td button:hover {
+    background-color: #64bfba;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Кнопка добавления фильма */
+.add-film-btn {
+    padding: 10px 20px;
+    border: 2px solid #64bfba;
+    border-radius: 14px;
+    background-color: #fdf4ea;
+    color: #2a6f6b;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.add-film-btn:hover {
+    color: #ffffff;
+    background-color: #64bfba;
+    border-color: #64bfba;
+    transform: scale(1.05);
+}
+
+/* Сообщения об ошибках */
 .error-message {
     color: #cc0000;
     background-color: #ffecec;
@@ -114,7 +190,7 @@
     </script>
     
     <div>
-        <button onclick="addFilm()">Добавить фильм</button>
+        <button class="add-film-btn" onclick="addFilm()">Добавить фильм</button>
     </div>
 
     <div class="modal">
