@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 8{% endblock %}
+
+{% block main %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='lab5/lab5.css') }}">
+
+    <h1>Лабораторная работа 8</h1>
+
+    <div>Тема лабораторной - Flask и БД</div>
+    <div>Список сделанных страниц:</div>
+
+    <ol>
+        <li><a href="/lab8/login" class="button-link">Вход</a></li>
+        <li><a href="/lab8/register" class="button-link">Регистрация</a></li>
+        <li><a href="/lab8/list" class="button-link">Список статей</a></li>
+        <li><a href="/lab8/create" class="button-link">Создать статью</a></li>
+    </ol>
+
+    <div class="user-info">
+        Пользователь: {% if login %}{{ login }}{% else %}Anonymous{% endif %}
+    </div>
+{% endblock %}
