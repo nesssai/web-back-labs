@@ -16,19 +16,13 @@ from lab8 import lab8
 import os
 from os import path
 import datetime
+
 app = Flask(__name__)
 
-login_manager = LoginManager()
-login_manager.login_view = 'lab8.login'
-login_manager.init_app(app)
-
-@login_manager.user_loader
-def load_users(login_id):
-    return users.query.get(int(login_id))
-
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'секретно-секретный секрет')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'secret, secret secret')
 app.config['DB_TYPE'] = os.getenv('DB_TYPE', 'postgres')
 
+# Настройка базы данных
 if app.config['DB_TYPE'] == 'postgres':
     db_name = 'sasha_denisenko_orm'
     db_user = 'sasha_denisenko_orm'
@@ -45,6 +39,15 @@ else:
 
 db.init_app(app)
 
+login_manager = LoginManager()
+login_manager.login_view = 'lab8.login'
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_users(login_id):
+    return users.query.get(int(login_id))
+
+# Регистрация blueprints
 app.register_blueprint(lab1)
 app.register_blueprint(lab2)
 app.register_blueprint(lab3)

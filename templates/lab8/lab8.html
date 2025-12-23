@@ -3,6 +3,7 @@
 {% block lab %}Лабораторная работа 8{% endblock %}
 
 {% block main %}
+
     <link rel="stylesheet" href="{{ url_for('static', filename='lab5/lab5.css') }}">
 
     <h1>Лабораторная работа 8</h1>
@@ -13,11 +14,20 @@
     <ol>
         <li><a href="/lab8/login" class="button-link">Вход</a></li>
         <li><a href="/lab8/register" class="button-link">Регистрация</a></li>
-        <li><a href="/lab8/list" class="button-link">Список статей</a></li>
+        <li><a href="/lab8/articles" class="button-link">Список статей</a></li>
         <li><a href="/lab8/create" class="button-link">Создать статью</a></li>
     </ol>
 
     <div class="user-info">
-        Пользователь: {% if login %}{{ login }}{% else %}Anonymous{% endif %}
+        Пользователь: {% if current_user.is_authenticated %}{{ current_user.login }}{% else %}Anonymous{% endif %}
     </div>
+
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('lab8.logout') }}" class="button-link" style="display: block; 
+                                                                            width: fit-content; 
+                                                                            margin-left: auto;
+                                                                            margin-top: 8px">
+            Выход🚪
+        </a>
+    {% endif %}
 {% endblock %}

@@ -18,7 +18,7 @@
         }
 
         form {
-            max-width: 400px;
+            max-width: 700px;
             width: 100%;
             background: white;
             padding: 32px;
@@ -33,16 +33,14 @@
 
         label {
             display: block;
-            color: #555555;
+            color: #555;
             font-weight: 500;
             margin-bottom: 8px;
         }
 
-        input[type="text"],
-        input[type="password"] {
+        input[type="text"] {
             width: 100%;
             padding: 12px 16px;
-            margin-top: 6px;
             border: 2px solid #ddd;
             border-radius: 10px;
             font-size: 15px;
@@ -50,8 +48,26 @@
             box-sizing: border-box;
         }
 
-        input[type="text"]:focus,
-        input[type="password"]:focus {
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #64bfba;
+            box-shadow: 0 0 0 3px rgba(100, 191, 186, 0.1);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            margin-top: 6px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            resize: vertical;
+            transition: all 0.3s;
+            box-sizing: border-box;
+        }
+
+        textarea:focus {
             outline: none;
             border-color: #64bfba;
             box-shadow: 0 0 0 3px rgba(100, 191, 186, 0.1);
@@ -66,8 +82,7 @@
         }
 
         button[type="submit"] {
-            width: 100%;
-            padding: 14px;
+            padding: 12px 28px;
             background: linear-gradient(135deg, #64bfba, #7eccca);
             color: white;
             border: none;
@@ -76,10 +91,27 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
+            margin-right: 12px;
         }
 
         button[type="submit"]:hover {
             background: linear-gradient(135deg, #58ada9, #6dbbb9);
+            transform: scale(1.05);
+        }
+
+        a {
+            display: inline-block;
+            padding: 12px 28px;
+            background: #f0f0f0;
+            color: #555;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        a:hover {
+            background: #e0e0e0;
             transform: scale(1.05);
         }
 
@@ -89,33 +121,37 @@
         }
     </style>
 
-    <h1>Вход в систему</h1>
+    <h1>Создать статью</h1>
 
     <div class="form-container">
-        <form action="/lab8/login" method="post">
+        <form action="/lab8/create/" method="post">
             <div>
                 {% if error %}
                     <p class="error">{{ error }}</p>
                 {% endif %}
 
                 <label>
-                    Логин: <input type="text" name="login">
+                    Название: <input type="text" name="title" style="width: 300px;">
                 </label>
             </div>
-
+            
             <div>
                 <label>
-                    Пароль: <input type="password" name="password">
+                    Текст статьи:<br>
+                    <textarea name="article_text" rows="10" cols="50"></textarea>
                 </label>
             </div>
-
+            
             <div>
                 <label>
-                    <input type="checkbox" name="remember"> Запомнить меня
+                    <input type="checkbox" name="is_public"> Публичная статья
                 </label>
             </div>
-
-            <button type="submit">Вход</button>
+            
+            <div>
+                <button type="submit">Создать</button>
+                <a href="/lab8/articles/">Отмена</a>
+            </div>
         </form>
     </div>
 {% endblock %}
