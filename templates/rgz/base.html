@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Камера хранения{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='rgz/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='rgz/cells.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+
+            <h1>Камера хранения</h1>
+
+            <div class="student-info">
+                <p>Выполнила: Денисенко Александра Юрьевна, ФБИ-31</p>
+            </div>
+
+            <nav>
+                <a href="{{ url_for('rgz.main') }}">Главная</a>
+                {% if session.get('login') %}
+                    <span>Пользователь: <strong>{{ session.get('login') }}</strong></span>
+                    <form method="POST" action="{{ url_for('rgz.logout') }}" style="display: inline;">
+                        <button type="submit" class="btn-logout">Выйти</button>
+                    </form>
+                {% else %}
+                    <a href="{{ url_for('rgz.login') }}">Вход</a>
+                    <a href="{{ url_for('rgz.register') }}">Регистрация</a>
+                {% endif %}
+            </nav>
+        </div>
+        
+    </header>
+    
+    <main class="container">
+        {% block main %}{% endblock %}
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Камера хранения. Расчетно-графическое задание по WEB-программированию</p>
+        </div>
+    </footer>
+</body>
+</html>
