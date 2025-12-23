@@ -14,4 +14,4 @@ class articles(db.Model):
     is_favorite = db.Column(db.Boolean)
     is_public = db.Column(db.Boolean)
     likes = db.Column(db.Integer)
-
+    author = db.relationship('users', backref='articles', foreign_keys=[login_id])

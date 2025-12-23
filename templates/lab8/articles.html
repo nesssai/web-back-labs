@@ -92,23 +92,87 @@
             font-size: 16px;
             margin: 0;
         }
+
+        .search-form {
+            display: inline-block;
+            margin-bottom: 24px;
+        }
+
+        .search-form input[type="text"] {
+            padding: 10px 16px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            font-size: 16px;
+            width: 300px;
+            margin-right: 8px;
+            transition: all 0.3s;
+        }
+
+        .search-form input[type="text"]:focus {
+            outline: none;
+            border-color: #64bfba;
+        }
+
+        .search-form button {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #64bfba, #7eccca);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-form button:hover {
+            background: linear-gradient(135deg, #58ada9, #6dbbb9);
+            transform: scale(1.05);
+        }
+
+        .search-info {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .article-text {
+            max-width: 600px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
     </style>
 
-    <h1>Мои статьи</h1>
+    <h1>{% if current_user.is_authenticated %}Мои статьи и публичные{% else %}Публичные статьи{% endif %}</h1>
 
     <p>
-        <a href="/lab8/create/">Создать новую статью</a> |
+        {% if current_user.is_authenticated %}
+            <a href="/lab8/create/">Создать новую статью</a> |
+        {% endif %}
         <a href="/lab8/">Назад</a>
     </p>
+
+    <form class="search-form" action="/lab8/articles/" method="get">
+        <input type="text" name="search" placeholder="Поиск по названию или тексту..." value="{{ search_query or '' }}">
+        <button type="submit">Найти</button>
+    </form>
+
+    {% if search_query %}
+        <div class="search-info">
+            Результаты поиска по запросу: "<strong>{{ search_query }}</strong>"
+        </div>
+    {% endif %}
 
     {% if articles %}
         <table>
             <thead>
                 <tr>
                     <th>Название</th>
-                    <th>Публичная</th>
-                    <th>Лайки</th>
-                    <th>Действия</th>
+                    <th>Автор</th>
+                    <th>Текст статьи</th>
+                    {% if current_user.is_authenticated %}
+                        <th>Действия</th>
+                    {% endif %}
                 </tr>
             </thead>
 
@@ -116,15 +180,31 @@
                 {% for article in articles %}
                 <tr>
                     <td>{{ article.title }}</td>
-                    <td>{{ 'Да' if article.is_public else 'Нет' }}</td>
-                    <td>{{ article.likes or 0 }}</td>
                     <td>
-                        <a href="/lab8/edit/{{ article.id }}/">Редактировать</a>
-                        <a href="/lab8/delete/{{ article.id }}/"
-                           onclick="return confirm('Вы уверены, что хотите удалить эту статью?');">
-                            Удалить
-                        </a>
+                        {% if current_user.is_authenticated and article.login_id == current_user.id %}
+                            <strong>Вы</strong>
+                        {% else %}
+                            {{ article.author.login }}
+                        {% endif %}
                     </td>
+                    <td>
+                        <div class="article-text" title="{{ article.article_text }}">
+                            {{ article.article_text }}
+                        </div>
+                    </td>
+                    {% if current_user.is_authenticated %}
+                        <td>
+                            {% if article.login_id == current_user.id %}
+                                <a href="/lab8/edit/{{ article.id }}/">Редактировать</a>
+                                <a href="/lab8/delete/{{ article.id }}/"
+                                   onclick="return confirm('Вы уверены, что хотите удалить эту статью?');">
+                                    Удалить
+                                </a>
+                            {% else %}
+                                —
+                            {% endif %}
+                        </td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
@@ -132,8 +212,16 @@
 
     {% else %}
         <div class="empty-state">
-            <p>У вас пока нет статей :(</p>
-            <p>Создайте первую!</p>
+            {% if search_query %}
+                <p>По вашему запросу ничего не найдено :(</p>
+            {% else %}
+                {% if current_user.is_authenticated %}
+                    <p>У вас пока нет статей :(</p>
+                    <p>Создайте первую!</p>
+                {% else %}
+                    <p>Публичных статей пока нет :(</p>
+                {% endif %}
+            {% endif %}
         </div>
     {% endif %}
     

@@ -1,9 +1,10 @@
-from flask import Blueprint, render_template, request, redirect, session
+from flask import Blueprint, render_template, request, redirect
 from werkzeug.security import generate_password_hash, check_password_hash
 from os import path
 from db import db
 from db.models import users, articles
 from flask_login import login_user, login_required, logout_user, current_user
+from sqlalchemy import or_
 
 lab8 = Blueprint('lab8', __name__)
 
@@ -11,6 +12,10 @@ lab8 = Blueprint('lab8', __name__)
 def lab():
     return render_template('lab8/lab8.html')
 
+# Обработчик регистрации нового пользователя
+# GET: отображает форму регистрации
+# POST: валидирует логин/пароль, проверяет уникальность логина, создает пользователя с хешированным паролем,
+# сохраняет в БД и автоматически авторизует
 @lab8.route('/lab8/register/', methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':
@@ -38,6 +43,10 @@ def register():
     login_user(new_user, remember=False)
     return redirect('/lab8/')
 
+# Обработчик авторизации пользователя
+# GET: отображает форму входа
+# POST: проверяет логин/пароль, использует хеширование для безопасной проверки,
+# авторизует пользователя с опцией "запомнить меня"
 @lab8.route('/lab8/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
@@ -63,13 +72,46 @@ def login():
     return render_template('/lab8/login.html',
                        error='Ошибка входа: логин и/или пароль неверны')
 
+# Главная страница со списком статей (доступна всем пользователям)
 @lab8.route('/lab8/articles/')
-@login_required
+# @login_required
 def article_list():
-    user_articles = articles.query.filter_by(login_id=current_user.id).all()
-    return render_template('lab8/articles.html', articles=user_articles)
+    search_query = request.args.get('search', '').strip()
 
-# Создание новой статьи
+    if current_user.is_authenticated:
+        if search_query:
+            user_articles = articles.query.filter(
+                or_(
+                    articles.login_id == current_user.id,
+                    articles.is_public == True
+                ),
+                or_(
+                    articles.title.ilike(f'%{search_query}%'),
+                    articles.article_text.ilike(f'%{search_query}%')
+                )
+            ).all()
+        else:
+            user_articles = articles.query.filter(
+                or_(
+                    articles.login_id == current_user.id,
+                    articles.is_public == True
+                )
+            ).all()
+    else:
+        if search_query:
+            user_articles = articles.query.filter(
+                articles.is_public == True,
+                or_(
+                    articles.title.ilike(f'%{search_query}%'),
+                    articles.article_text.ilike(f'%{search_query}%')
+                )
+            ).all()
+        else:
+            user_articles = articles.query.filter_by(is_public=True).all()
+    
+    return render_template('lab8/articles.html', articles=user_articles, search_query=search_query)
+
+# Создание новой статьи (только для авторизованных пользователей)
 @lab8.route('/lab8/create/', methods=['GET', 'POST'])
 @login_required
 def create_article():
@@ -99,7 +141,7 @@ def create_article():
     
     return redirect('/lab8/articles/')
 
-# Редактирование статьи
+# Редактирование существующей статьи (только автор статьи)
 @lab8.route('/lab8/edit/<int:article_id>/', methods=['GET', 'POST'])
 @login_required
 def edit_article(article_id):
@@ -128,7 +170,7 @@ def edit_article(article_id):
     
     return redirect('/lab8/articles/')
 
-# Удаление статьи
+# Удаление статьи (только автор статьи)
 @lab8.route('/lab8/delete/<int:article_id>/')
 @login_required
 def delete_article(article_id):
@@ -140,6 +182,7 @@ def delete_article(article_id):
     
     return redirect('/lab8/articles/')
 
+# Выход из системы - завершает сессию пользователя и перенаправляет на главную страницу
 @lab8.route('/lab8/logout')
 @login_required
 def logout():
