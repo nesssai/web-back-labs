@@ -3,208 +3,31 @@
 {% block lab %}Лабораторная работа 9{% endblock %}
 
 {% block main %}
-    <style>
-        main {
-            background: #406a5c;
-            position: relative;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-
-        header {
-            background: linear-gradient(90deg, #8B0000 0%, #DC143C 50%, #FF6347 100%);
-            box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        footer {
-            background: linear-gradient(90deg, #FF6347 0%, #DC143C 50%, #8B0000 100%);
-            box-shadow: 0 -4px 15px rgba(220, 20, 60, 0.4);
-        }
-
-        .lab9-container {
-            position: relative; 
-            height: 700px; 
-            border-radius: 16px; 
-            background: #5a9d8c;
-            margin-top: 20px;
-            overflow: hidden;
-        }
-
-        .lab9-title {
-            text-align: center; 
-            padding-top: 20px;
-            color: white;
-            font-weight: bold;
-            position: relative;
-        }
-
-        .lab9-counter {
-            text-align: center;
-            color: white;
-            font-weight: 600;
-            background: #8B0000;
-            display: inline-block;
-            padding: 8px 20px;
-            border-radius: 20px;
-            margin: 10px auto;
-            position: relative;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .gift-box {
-            position: absolute; 
-            cursor: pointer; 
-            transition: all 0.3s;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-        }
-        
-        .gift-box:hover {
-            transform: scale(1.15) rotate(5deg);
-            filter: drop-shadow(0 8px 16px rgba(255, 215, 0, 0.6))
-                    drop-shadow(0 0 20px rgba(255, 100, 100, 0.4));
-            z-index: 100;
-        }
-
-        .gift-box.opened {
-            opacity: 0.4;
-            filter: grayscale(100%) blur(1px);
-            pointer-events: none;
-            transform: scale(0.9);
-        }
-
-        .gift-image {
-            width: 250px; 
-            height: 250px; 
-            object-fit: contain;
-            transition: transform 0.3s ease;
-        }
-
-        .gift-box:hover .gift-image {
-            transform: translateY(-5px);
-        }
-
-        .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 1000; 
-            left: 0;
-            top: 0;
-            width: 100%; 
-            height: 100%; 
-            overflow: auto; 
-            background: rgba(15, 32, 39, 0.85);
-            backdrop-filter: blur(8px);
-        }
-
-        .modal-content {
-            background: linear-gradient(135deg, #ffffff 0%, #fff8dc 100%);
-            margin: 10% auto; 
-            padding: 20px;
-            border: none;
-            width: 500px;
-            text-align: center;
-            border-radius: 16px;
-        }
-
-        .modal-header-text {
-            color: #d32f2f;
-            margin-top: 10px;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .modal-gift-image {
-            width: 300px; 
-            height: 300px; 
-            object-fit: contain; 
-            margin: 15px 0;
-            filter: drop-shadow(0 4px 12px rgba(255, 215, 0, 0.4));
-        }
-
-        .modal-congratulation {
-            font-size: 18px; 
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #2c3e50;
-        }
-
-        .modal-button {
-            padding: 14px 28px;
-            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
-            color: white;
-            border: none;
-            border-radius: 16px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4);
-        }
-
-        .modal-button:hover {
-            background: linear-gradient(135deg, #FF6347 0%, #DC143C 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 99, 71, 0.6);
-        }
-
-        .reset-container {
-            text-align: center; 
-            margin-top: 20px;
-        }
-
-        .reset-button {
-            padding: 14px 28px;
-            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
-            color: white;
-            border: none;
-            border-radius: 16px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
-        }
-
-        .reset-button:hover {
-            background: linear-gradient(135deg, #DC143C 0%, #FF6347 100%);
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.6);
-        }
-
-        .button-link {
-            padding: 14px 28px;
-            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
-            color: white;
-            border: none;
-            border-radius: 16px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
-        }
-
-        .button-link:hover {
-            background: linear-gradient(135deg, #DC143C 0%, #FF6347 100%);
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 6px 20px rgba(220, 20, 60, 0.6);
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='lab9/lab9.css') }}">
 
     <!-- Игровое поле с подарками -->
     <div class="lab9-container">
+        <!-- Заголовок игры с призывом к действию -->
         <h1 class="lab9-title">Выбирай свой подарок!</h1>
-        <p class="lab9-counter">Осталось нетронутых коробок: <span id="closed-count">{{ count }}</span></p>
         
-        <!-- Цикл создает все подарки -->
+        <!-- Счетчик оставшихся закрытых подарков -->
+        <p class="lab9-counter">
+            Осталось нетронутых коробок: 
+            <span id="closed-count">{{ count }}</span>
+        </p>
+        
+        <!-- Цикл Django создает все подарки из базы данных -->
         {% for gift in gifts %}
-            <div class="gift-box {% if gift.opened %}opened{% endif %}" 
-                    id="gift-{{ gift.id }}"
-                    onclick="openGift({{ gift.id }})"
-                    style="top: {{ gift.top }}px; left: {{ gift.left }}px;">
+            <!-- Индивидуальная коробка подарка -->
+            <!-- Классы: 'opened' - если уже открыта, 'auth-required' - требует авторизации -->
+            <div class="gift-box 
+                {% if gift.opened %}opened{% endif %} 
+                {% if gift.auth_required and not is_authenticated %}auth-required{% endif %}" 
+                id="gift-{{ gift.id }}"
+                onclick="openGift({{ gift.id }})"
+                style="top: {{ gift.top }}px; left: {{ gift.left }}px;">
                 
+                <!-- Изображение подарка из базы данных -->
                 <img src="{{ gift.image }}" alt="Подарок" class="gift-image">
             </div>
         {% endfor %}
@@ -213,19 +36,30 @@
     <!-- Модальное окно с содержимым подарка -->
     <div id="myModal" class="modal">
         <div class="modal-content">
+            <!-- Поздравительный заголовок модального окна -->
             <h2 class="modal-header-text">Поздравляем с Новым 2026 Годом!</h2>
+            
+            <!-- Изображение сюрприза из подарка -->
             <img id="modal-image" src="" class="modal-gift-image">
+            
+            <!-- Текст поздравления -->
             <p id="modal-text" class="modal-congratulation"></p>
+            
+            <!-- Кнопка закрытия модального окна -->
             <button onclick="closeModal()" class="modal-button">Спасибо!</button>
         </div>
     </div>
 
-    <!-- Кнопка сброса игры -->
-    <div class="reset-container">
-        <button onclick="resetGame()" class="reset-button">
-            Сбросить игру
-        </button>
-    </div>
+    <!-- Кнопка сброса игры (только для авторизованных пользователей) -->
+    {% if is_authenticated %}
+        <!-- Контейнер для кнопки администратора -->
+        <div class="reset-container">
+            <!-- Кнопка сброса всех подарков в начальное состояние -->
+            <button onclick="resetGame()" class="reset-button">
+                🎅 Дед Мороз
+            </button>
+        </div>
+    {% endif %}
 
     <script>
     // Функция для открытия подарка
@@ -278,9 +112,6 @@
 
     // Функция для сброса игры
     function resetGame() {
-        // Спрашиваем подтверждение
-        if(!confirm("Вы точно хотите сбросить игру и закрыть все подарки?")) return;
-
         // Отправляем запрос на сброс
         fetch('/lab9/rest-api/gifts/reset', {
             method: 'POST'

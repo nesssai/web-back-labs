@@ -1,0 +1,198 @@
+main {
+    background: #406a5c;
+    position: relative;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+header {
+    background: linear-gradient(90deg, #8B0000 0%, #DC143C 50%, #FF6347 100%);
+    box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+footer {
+    background: linear-gradient(90deg, #FF6347 0%, #DC143C 50%, #8B0000 100%);
+    box-shadow: 0 -4px 15px rgba(220, 20, 60, 0.4);
+}
+
+.lab9-container {
+    position: relative;
+    height: 700px;
+    border-radius: 16px;
+    background: #5a9d8c;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.lab9-title {
+    text-align: center;
+    padding-top: 20px;
+    color: white;
+    font-weight: bold;
+    position: relative;
+}
+
+.lab9-counter {
+    text-align: center;
+    color: white;
+    font-weight: 600;
+    background: #8B0000;
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 20px;
+    margin: 10px auto;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.gift-box {
+    position: absolute;
+    cursor: pointer;
+    transition: all 0.3s;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.gift-box:hover {
+    transform: scale(1.15) rotate(5deg);
+    filter: drop-shadow(0 8px 16px rgba(255, 215, 0, 0.6))
+           drop-shadow(0 0 20px rgba(255, 100, 100, 0.4));
+    z-index: 100;
+}
+
+.gift-box.opened {
+    opacity: 0.4;
+    filter: grayscale(100%) blur(1px);
+    pointer-events: none;
+    transform: scale(0.9);
+}
+
+.gift-box.auth-required::after {
+    content: "🔒";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.gift-image {
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.gift-box:hover .gift-image {
+    transform: translateY(-5px);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(15, 32, 39, 0.85);
+    backdrop-filter: blur(8px);
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #ffffff 0%, #fff8dc 100%);
+    margin: 10% auto;
+    padding: 20px;
+    border: none;
+    width: 500px;
+    text-align: center;
+    border-radius: 16px;
+}
+
+.modal-header-text {
+    color: #d32f2f;
+    margin-top: 10px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.modal-gift-image {
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+    margin: 15px 0;
+    filter: drop-shadow(0 4px 12px rgba(255, 215, 0, 0.4));
+}
+
+.modal-congratulation {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.modal-button {
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(220, 20, 60, 0.4);
+}
+
+.modal-button:hover {
+    background: linear-gradient(135deg, #FF6347 0%, #DC143C 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 99, 71, 0.6);
+}
+
+.reset-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.reset-button {
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
+}
+
+.reset-button:hover {
+    background: linear-gradient(135deg, #DC143C 0%, #FF6347 100%);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(220, 20, 60, 0.6);
+}
+
+.button-link {
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.4);
+}
+
+.button-link:hover {
+    background: linear-gradient(135deg, #DC143C 0%, #FF6347 100%);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(220, 20, 60, 0.6);
+}
