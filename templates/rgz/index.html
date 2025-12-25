@@ -17,81 +17,80 @@
                 <span class="stat-value occupied">{{ occupied_count }}</span>
             </div>
             {% if session.get('login') %}
-            <div class="stat-item">
-                <span class="stat-label">Ваши ячейки:</span>
-                <span class="stat-value user-booked">{{ user_booked_count }} / 5</span>
-            </div>
+                <div class="stat-item">
+                    <span class="stat-label">Ваши ячейки:</span>
+                    <span class="stat-value user-booked">{{ user_booked_count }} / 5</span>
+                </div>
             {% endif %}
         </div>
     </div>
 
     {% if error %}
-    <div class="alert alert-error">
-        {{ error }}
-    </div>
+        <div class="alert alert-error">
+            {{ error }}
+        </div>
     {% endif %}
 
     {% if session.get('login') %}
-    <div class="legend">
-        <h3>Легенда:</h3>
-        <div class="legend-items">
-            <span class="legend-item"><span class="cell cell-free">№</span> Свободна</span>
-            <span class="legend-item"><span class="cell cell-my">№</span> Ваша ячейка</span>
-            <span class="legend-item"><span class="cell cell-occupied">№</span> Занята</span>
+        <div class="legend">
+            <div class="legend-items">
+                <span class="legend-item"><span class="cell cell-free">№</span> Свободна</span>
+                <span class="legend-item"><span class="cell cell-my">№</span> Ваша ячейка</span>
+                <span class="legend-item"><span class="cell cell-occupied">№</span> Занята</span>
+            </div>
         </div>
-    </div>
     {% else %}
-    <div class="info-message">
-        <p>Для бронирования ячеек необходимо <a href="{{ url_for('rgz.login') }}">войти</a> или <a href="{{ url_for('rgz.register') }}">зарегистрироваться</a></p>
-    </div>
+        <div class="info-message">
+            <p>Для бронирования ячеек необходимо <a href="{{ url_for('rgz.login') }}">войти</a> или <a href="{{ url_for('rgz.register') }}">зарегистрироваться</a></p>
+        </div>
     {% endif %}
 
     <div class="cells-grid">
         {% for cell in cells %}
-        <div class="cell-container">
-            {% if cell.user_id is none %}
-                {# Свободная ячейка #}
-                <div class="cell cell-free">
-                    <span class="cell-number">{{ cell.cell_number }}</span>
-                    {% if session.get('user_id') %}
-                        {% if user_booked_count < 5 %}
-                        <form method="POST" action="{{ url_for('rgz.book_cell', cell_number=cell.cell_number) }}" class="cell-form">
-                            <button type="submit" class="btn-book">Забронировать</button>
-                        </form>
+            <div class="cell-container">
+                {% if cell.user_id is none %}
+                    {# Свободная ячейка #}
+                    <div class="cell cell-free">
+                        <span class="cell-number">{{ cell.cell_number }}</span>
+                        {% if session.get('user_id') %}
+                            {% if user_booked_count < 5 %}
+                                <form method="POST" action="{{ url_for('rgz.book_cell', cell_number=cell.cell_number) }}" class="cell-form">
+                                    <button type="submit" class="btn-book">Забронировать</button>
+                                </form>
+                            {% endif %}
                         {% endif %}
-                    {% endif %}
-                </div>
-            {% elif cell.user_id == session.get('user_id') %}
-                {# Ячейка пользователя #}
-                <div class="cell cell-my">
-                    <span class="cell-number">{{ cell.cell_number }}</span>
-                    <span class="cell-owner">Ваша</span>
-                    <form method="POST" action="{{ url_for('rgz.release_cell', cell_number=cell.cell_number) }}" class="cell-form">
-                        <button type="submit" class="btn-release">Освободить</button>
-                    </form>
-                </div>
-            {% else %}
-                {# Занятая другим пользователем ячейка #}
-                <div class="cell cell-occupied">
-                    <span class="cell-number">{{ cell.cell_number }}</span>
-                    {% if session.get('login') %}
-                    <span class="cell-owner">{{ cell.login }}</span>
-                    {% else %}
-                    <span class="cell-owner">Занята</span>
-                    {% endif %}
-                </div>
-            {% endif %}
-        </div>
+                    </div>
+                {% elif cell.user_id == session.get('user_id') %}
+                    {# Ячейка пользователя #}
+                    <div class="cell cell-my">
+                        <span class="cell-number">{{ cell.cell_number }}</span>
+                        <span class="cell-owner">Ваша</span>
+                        <form method="POST" action="{{ url_for('rgz.release_cell', cell_number=cell.cell_number) }}" class="cell-form">
+                            <button type="submit" class="btn-release">Освободить</button>
+                        </form>
+                    </div>
+                {% else %}
+                    {# Занятая другим пользователем ячейка #}
+                    <div class="cell cell-occupied">
+                        <span class="cell-number">{{ cell.cell_number }}</span>
+                        {% if session.get('login') %}
+                            <span class="cell-owner">{{ cell.login }}</span>
+                        {% else %}
+                            <span class="cell-owner">Занята</span>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
         {% endfor %}
     </div>
 
     {% if session.get('login') %}
-    <div class="account-actions">
-        <h3>Управление аккаунтом</h3>
-        <form method="POST" action="{{ url_for('rgz.delete_account') }}" 
-            onsubmit="return confirm('Вы уверены, что хотите удалить свой аккаунт? Это действие необратимо.');">
-            <button type="submit" class="btn-danger">Удалить аккаунт</button>
-        </form>
-    </div>
+        <div class="account-actions">
+            <h2>Управление аккаунтом</h2>
+            <form method="POST" action="{{ url_for('rgz.delete_account') }}" 
+                onsubmit="return confirm('Вы уверены, что хотите удалить свой аккаунт? Это действие необратимо.');">
+                <button type="submit" class="btn-danger">Удалить аккаунт</button>
+            </form>
+        </div>
     {% endif %}
 {% endblock %}

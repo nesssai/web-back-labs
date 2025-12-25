@@ -20,7 +20,7 @@
             <nav>
                 <a href="{{ url_for('rgz.main') }}">Главная</a>
                 {% if session.get('login') %}
-                    <span>Пользователь: <strong>{{ session.get('login') }}</strong></span>
+                    <span>Пользователь: <b>{{ session.get('login') }}</b></span>
                     <form method="POST" action="{{ url_for('rgz.logout') }}" style="display: inline;">
                         <button type="submit" class="btn-logout">Выйти</button>
                     </form>

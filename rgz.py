@@ -4,7 +4,6 @@ from psycopg2.extras import RealDictCursor
 from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 from os import path
-import re
 
 rgz = Blueprint('rgz', __name__)
 
@@ -30,20 +29,6 @@ def db_close(conn, cur):
     conn.commit()
     cur.close()
     conn.close()
-
-# Валидация логина
-def validate_login(login):
-    if not login or len(login) < 3 or len(login) > 30:
-        return False
-    pattern = r'^[a-zA-Z0-9._-]+$'
-    return bool(re.match(pattern, login))
-
-# Валидация пароля
-def validate_password(password):
-    if not password or len(password) < 5:
-        return False
-    pattern = r'^[a-zA-Z0-9!@#$%^&*()_+=\-\[\]{};:,.<>?]+$'
-    return bool(re.match(pattern, password))
 
 @rgz.route('/rgz/')
 def main():
@@ -93,12 +78,14 @@ def register():
                              error='Заполните все поля', 
                              login=login)
     
-    if not validate_login(login):
+    # Проверка длины логина
+    if len(login) < 3 or len(login) > 30:
         return render_template('rgz/register.html', 
-                             error='Логин должен содержать 3-30 символов (латинские буквы, цифры, точка, дефис, подчеркивание)',
+                             error='Логин должен содержать от 3 до 30 символов',
                              login=login)
     
-    if not validate_password(password):
+    # Проверка длины пароля
+    if len(password) < 5:
         return render_template('rgz/register.html', 
                              error='Пароль должен содержать минимум 5 символов',
                              login=login)
